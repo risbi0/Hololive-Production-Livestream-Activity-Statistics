@@ -51,7 +51,7 @@ st.components.v1.html(
 )
 
 def display_heatmap():
-    heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', sep='\t', header=None)
+    heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', header=None)
     # shift data according to timezone difference
     heatmap_df = pd.DataFrame(np.roll(heatmap_df.values.flatten(), time_offset).reshape(7, -1))
     heatmap = make_subplots(rows=7, cols=1, vertical_spacing=0)
@@ -263,7 +263,7 @@ def to_timezone(mins):
 
 @st.cache
 def load_data():
-    return pd.read_csv('data/data.csv', delimiter='\t', index_col=[0]), \
+    return pd.read_csv('data/data.csv',   index_col=[0]), \
            pd.read_csv('data/colors.csv', index_col=[0])
 
 df, colors = load_data()
@@ -288,7 +288,7 @@ name = df.index[df['ch_name'] == select][0]
 main_color = f"#{colors.loc[name, 'most']}"
 sub_color = f"#{colors.loc[name, 'least']}"
 opp_color = f"#{colors.loc[name, 'zero']}"
-topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0], sep='\t')
+topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 
 display_heatmap()
 display_hour_and_day_charts()
