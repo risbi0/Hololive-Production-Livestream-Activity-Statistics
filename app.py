@@ -41,6 +41,8 @@ st.markdown(
 )
 
 def display_heatmap():
+    times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
+    days_short = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', header=None)
     # shift data according to timezone difference
     heatmap_df = pd.DataFrame(np.roll(heatmap_df.values.flatten(), time_offset).reshape(7, -1))
@@ -112,6 +114,7 @@ def bar_chart(name, col_name, x_labels, title, x_title, y_title):
     return bar_fig
 
 def display_hour_and_day_charts():
+    hour_x_labels = ['<1', '1-2', '2-3', '3,4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12']
     hour_bar = bar_chart(
         name=name,
         col_name='hour_data',
@@ -146,6 +149,7 @@ def topic_bar(index, color):
     )
 
 def display_archive_and_topics_charts():
+    topics_legend = ['Streams', 'Duration (hours)']
     unarchived = df.loc[name, 'missing']
     archived = df.loc[name, 'count'] - unarchived
     archive_health = go.Figure(
@@ -260,12 +264,8 @@ def load_data():
            pd.read_csv('data/colors.csv', index_col=[0])
 
 df, colors = load_data()
-times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
-days_short = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 days = list(calendar.day_name)
 days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
-hour_x_labels = ['<1', '1-2', '2-3', '3,4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12']
-topics_legend = ['Streams', 'Duration (hours)']
 time_offsets = [
     -1260, -1200, -1140, -1050, -1080, -1020, -960, -900, -840, -780,
     -690, -720,  -660, -600, -540, -480, -420, -360, -330, -300,
