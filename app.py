@@ -114,7 +114,7 @@ def bar_chart(name, col_name, x_labels, title, x_title, y_title):
     return bar_fig
 
 def display_hour_and_day_charts():
-    hour_x_labels = ['<1', '1-2', '2-3', '3,4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12']
+    hour_x_labels = [f'{i}-{i + 1}' for i in range(12)]
     hour_bar = bar_chart(
         name=name,
         col_name='hour_data',
