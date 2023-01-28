@@ -73,7 +73,7 @@ def display_heatmap():
         heatmap.append_trace(sub_fig, index + 1, 1)
 
     heatmap.update_xaxes(
-        tickvals=list(range(30,1440,60)),
+        tickvals=list(range(30, 1440, 60)),
         ticktext=list(range(0, 24)),
         fixedrange=True
     )
