@@ -40,16 +40,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# hide badge from production site
-st.components.v1.html(
-    f" \
-    <script> \
-        console.log('running'); \
-        parent.parent.document.querySelector('a[href='https://streamlit.io/cloud']').style.display = 'none'; \
-    </script> \
-    "
-)
-
 def display_heatmap():
     heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', header=None)
     # shift data according to timezone difference
