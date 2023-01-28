@@ -46,7 +46,9 @@ def display_heatmap():
     heatmap_df = pd.DataFrame(np.roll(heatmap_df.values.flatten(), time_offset).reshape(7, -1))
     heatmap = make_subplots(rows=7, cols=1, vertical_spacing=0)
 
+    # make heatmaps for each row then combine them
     for index, row in heatmap_df.iterrows():
+        # custom tooltip
         tooltip = list()
         tooltip.append(list())
         for i, time in enumerate(times):
@@ -56,7 +58,7 @@ def display_heatmap():
         sub_fig = go.Heatmap(
             y=[days_short[index]],
             z=[row_arr],
-            zmin=np.min(row_arr[np.nonzero(row_arr)]),
+            zmin=np.min(row_arr[np.nonzero(row_arr)]), # min value except 0
             zmax=np.max(row_arr),
             colorscale=[
                 [0, opp_color], # only zeroes as separate color
@@ -86,6 +88,7 @@ def display_heatmap():
     st.plotly_chart(heatmap, use_container_width=True)
 
 def bar_chart(name, col_name, x_labels, title, x_title, y_title):
+    # comma-delimited string to list
     data = [int(i) for i in df.loc[name, col_name].split(',')]
     bar_fig = go.Figure(
         go.Bar(
@@ -260,7 +263,7 @@ df, colors = load_data()
 times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
 days_short = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 days = list(calendar.day_name)
-days = days[-1:] + days[:-1]
+days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
 hour_x_labels = ['<1', '1-2', '2-3', '3,4', '4-5', '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12']
 topics_legend = ['Streams', 'Duration (hours)']
 time_offsets = [
@@ -272,7 +275,7 @@ time_offsets = [
 
 col1, col2 = st.columns([1, 1])
 select = col1.selectbox('Hololive Production Member:', df['ch_name'].tolist())
-time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone)
+time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
 
 name = df.index[df['ch_name'] == select][0]
 main_color = f"#{colors.loc[name, 'most']}"
