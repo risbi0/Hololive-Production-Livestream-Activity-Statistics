@@ -31,6 +31,20 @@ st.markdown(
         div.stSelectbox label {
             margin-top: 30px !important;
         }
+        .stats {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .stats p:nth-child(1) {
+            margin-bottom: -5px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .stats p:nth-child(2) {
+            font-size: 18px;
+        }
         #heatmap-title {
             font-weight: bold;
             margin-bottom: -20px;
@@ -42,6 +56,29 @@ st.markdown(
     ''',
     unsafe_allow_html=True
 )
+
+def plural(n):
+    return 's' if int(n) != 1 else ''
+
+def display_individual_stats():
+    hrs_dd_hh_mm = df.loc[name, 'total_f'].split(':')
+    avg_mins_hh_mm = df.loc[name, 'avg_f'].split(':')
+    stat_headers = ['Total Livestreams', 'Total Hours', 'Average Duration per Stream']
+    stat_details = [
+        f"{round(df.loc[name, 'count']):,}",
+        f"{round(df.loc[name, 'total_hrs']):,} ({hrs_dd_hh_mm[0]} days, {hrs_dd_hh_mm[1].lstrip('0')} hour{plural(hrs_dd_hh_mm[1])}, {hrs_dd_hh_mm[2].lstrip('0')} minute{plural(hrs_dd_hh_mm[2])})",
+        f"{avg_mins_hh_mm[0]} hour{plural(avg_mins_hh_mm[0])}, {avg_mins_hh_mm[1].lstrip('0')} minute{plural(avg_mins_hh_mm[1])}"
+    ]
+
+    col = st.columns(3)
+    for i in range(len(col)):
+        col[i].markdown(f'''
+            <div class='stats'>
+                <p>{stat_headers[i]}</p>
+                <p>{stat_details[i]}</p>
+            </div>''',
+            unsafe_allow_html=True
+        )
 
 def display_heatmap():
     times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
@@ -304,6 +341,8 @@ sub_color = f"#{colors.loc[name, 'least']}"
 opp_color = f"#{colors.loc[name, 'zero']}"
 topics = load_topics(name)
 
+st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h3>", unsafe_allow_html=True)
+display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()
 display_archive_and_topics_charts()
