@@ -35,6 +35,9 @@ st.markdown(
             font-weight: bold;
             margin-bottom: -20px;
         }
+        div[data-testid="column"]:nth-child(2) p {
+            text-align: right;
+        }
     </style>
     ''',
     unsafe_allow_html=True
@@ -88,6 +91,10 @@ def display_heatmap():
     )
     st.markdown('<p id="heatmap-title">Livestream Timeseries Heatmap</p>', unsafe_allow_html=True)
     st.plotly_chart(heatmap, use_container_width=True)
+    st.caption('''
+        Lightest and darkest tint represent the least and most frequent streamed times of the day respectively. 
+        Opposite/complementary color of the darkest tint represent 0 streaming times.
+    ''')
 
 def bar_chart(name, col_name, x_labels, title, x_title, y_title):
     # comma-delimited string to list
@@ -123,6 +130,10 @@ def display_hour_and_day_charts():
         x_title='Duration (hours)',
         y_title='Streams'
     )
+    hour_bar.update_layout(
+        height=450,
+        margin=dict(t=50, b=0)
+    )
     weekday_bar = bar_chart(
         name=name,
         col_name='weekday_data',
@@ -131,9 +142,14 @@ def display_hour_and_day_charts():
         x_title='Day of the Week',
         y_title='Streams'
     )
+    weekday_bar.update_layout(
+        height=450,
+        margin=dict(t=50, b=0)
+    )
     hour_col, weekday_col = st.columns([3, 2])
     hour_col.plotly_chart(hour_bar, use_container_width=True)
     weekday_col.plotly_chart(weekday_bar, use_container_width=True)
+    weekday_col.caption('Follows JST timezone (UTC+09:00).')
 
 def topic_bar(index, color):
     return go.Bar(
@@ -212,6 +228,7 @@ def display_archive_and_topics_charts():
 
     ah_col, topic_col = st.columns([2, 3])
     ah_col.plotly_chart(archive_health, use_container_width=True)
+    ah_col.caption('Does not represent the entirety of unarchived videos as the Holodex API does not record the duration on some of it, so it wasn\'t counted.')
     topic_col.plotly_chart(topics_bar, use_container_width=True)
 
 def to_timezone(mins):
