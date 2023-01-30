@@ -120,7 +120,7 @@ def main(name):
 
     # save stats to own csv, to be later combined
     total_mins += round(vid_dur / 60)
-    livestream_count = len(livestream_details[name]['details'])
+    livestream_count = round(len(livestream_details[name]['details']))
     total_hrs = round(total_mins / 60)
     avg_mins = round(total_mins / livestream_count)
     debut_date = [int(s) for s in details.loc[name, 'debut_date'].split('/')]
