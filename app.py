@@ -280,6 +280,10 @@ def load_data():
     return pd.read_csv('data/data.csv',   index_col=[0]), \
            pd.read_csv('data/colors.csv', index_col=[0])
 
+@st.cache
+def load_topics(name):
+    return pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
+
 df, colors = load_data()
 days = list(calendar.day_name)
 days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
@@ -298,7 +302,7 @@ name = df.index[df['ch_name'] == select][0]
 main_color = f"#{colors.loc[name, 'most']}"
 sub_color = f"#{colors.loc[name, 'least']}"
 opp_color = f"#{colors.loc[name, 'zero']}"
-topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
+topics = load_topics(name)
 
 display_heatmap()
 display_hour_and_day_charts()
