@@ -341,7 +341,7 @@ sub_color = f"#{colors.loc[name, 'least']}"
 opp_color = f"#{colors.loc[name, 'zero']}"
 topics = load_topics(name)
 
-st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h3>", unsafe_allow_html=True)
+st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()
