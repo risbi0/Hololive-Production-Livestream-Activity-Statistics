@@ -7,6 +7,7 @@ import math, calendar
 
 st.set_page_config(
     page_title='Hololive Production Livestream Activity Statistics',
+    initial_sidebar_state='collapsed',
     layout='wide',
     menu_items={
         'About': '''
@@ -312,12 +313,10 @@ def to_timezone(mins):
     sign = '+' if mins >= -540 else '-'
     return f'(UTC{sign}{str(abs(9 + mins // 60)).zfill(2)}:{str(mins % 60).zfill(2)}) {timezone_abbr[time_offsets.index(mins)]}'
 
-@st.cache
 def load_data():
     return pd.read_csv('data/data.csv',   index_col=[0]), \
            pd.read_csv('data/colors.csv', index_col=[0])
 
-@st.cache
 def load_topics(name):
     return pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 
