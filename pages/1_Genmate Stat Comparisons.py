@@ -3,22 +3,6 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-def generation_names(gen):
-    generations_full_name = [
-        'Hololive JP 0th Generation', 'Hololive JP 1sh Generation', 'Hololive JP 2nd Generation',
-        'GAMERS', 'Hololive JP 3rd Generation | hololive Fantasy', 'Hololive JP 4th Generation | holoForce',
-        'Hololive JP 5th Generation | NePoLaBo', 'Hololive JP 6th Generation | holoX',
-        'ID 1st Generation | AREA 15', 'ID 2nd Generation | holoro', 'ID 3rd Generation | holo3ro',
-        'Hololive EN 1st Generation | holoMyth', 'Hololive EN 2nd Generation | holoCouncil + Project: HOPE',
-        'Holostars JP 1st Generation', 'Holostars JP 2nd Generation | SunTempo', 'Holostars JP 3rd Generation | TriNero',
-        'UPROAR!!', 'Holostars EN 1st Generation | TEMPUS HQ', 'Holostars EN 2nd Generation | TEMPUS Vanguard'
-    ]
-    return generations_full_name[generations.index(gen)]
-
-def load_data():
-    return pd.read_csv('data/data.csv',   index_col=[0]), \
-           pd.read_csv('data/colors.csv', index_col=[0])
-
 st.set_page_config(
     page_title='Hololive Production Livestream Activity Statistics',
     initial_sidebar_state='collapsed',
@@ -44,6 +28,22 @@ st.markdown(
     ''',
     unsafe_allow_html=True
 )
+
+def generation_names(gen):
+    generations_full_name = [
+        'Hololive JP 0th Generation', 'Hololive JP 1sh Generation', 'Hololive JP 2nd Generation',
+        'GAMERS', 'Hololive JP 3rd Generation | hololive Fantasy', 'Hololive JP 4th Generation | holoForce',
+        'Hololive JP 5th Generation | NePoLaBo', 'Hololive JP 6th Generation | holoX',
+        'ID 1st Generation | AREA 15', 'ID 2nd Generation | holoro', 'ID 3rd Generation | holo3ro',
+        'Hololive EN 1st Generation | holoMyth', 'Hololive EN 2nd Generation | holoCouncil + Project: HOPE',
+        'Holostars JP 1st Generation', 'Holostars JP 2nd Generation | SunTempo', 'Holostars JP 3rd Generation | TriNero',
+        'UPROAR!!', 'Holostars EN 1st Generation | TEMPUS HQ', 'Holostars EN 2nd Generation | TEMPUS Vanguard'
+    ]
+    return generations_full_name[generations.index(gen)]
+
+def load_data():
+    return pd.read_csv('data/data.csv',   index_col=[0]), \
+           pd.read_csv('data/colors.csv', index_col=[0])
 
 df, colors = load_data()
 df['count'] = df['count'].astype(int)
