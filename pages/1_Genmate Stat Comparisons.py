@@ -41,11 +41,8 @@ def generation_names(gen):
     ]
     return generations_full_name[generations.index(gen)]
 
-def load_data():
-    return pd.read_csv('data/data.csv',   index_col=[0]), \
-           pd.read_csv('data/colors.csv', index_col=[0])
-
-df, colors = load_data()
+df = pd.read_csv('data/data.csv', index_col=[0])
+colors = pd.read_csv('data/colors.csv', index_col=[0])
 df['count'] = df['count'].astype(int)
 df['total_hrs'] = df['total_hrs'].astype(int)
 df['avg_mins'] = df['avg_mins'].astype(int)

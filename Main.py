@@ -313,14 +313,8 @@ def to_timezone(mins):
     sign = '+' if mins >= -540 else '-'
     return f'(UTC{sign}{str(abs(9 + mins // 60)).zfill(2)}:{str(mins % 60).zfill(2)}) {timezone_abbr[time_offsets.index(mins)]}'
 
-def load_data():
-    return pd.read_csv('data/data.csv',   index_col=[0]), \
-           pd.read_csv('data/colors.csv', index_col=[0])
-
-def load_topics(name):
-    return pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
-
-df, colors = load_data()
+df = pd.read_csv('data/data.csv', index_col=[0])
+colors = pd.read_csv('data/colors.csv', index_col=[0])
 days = list(calendar.day_name)
 days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
 time_offsets = [
@@ -338,7 +332,7 @@ name = df.index[df['ch_name'] == select][0]
 main_color = f"#{colors.loc[name, 'most']}"
 sub_color = f"#{colors.loc[name, 'least']}"
 opp_color = f"#{colors.loc[name, 'zero']}"
-topics = load_topics(name)
+topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 
 st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
