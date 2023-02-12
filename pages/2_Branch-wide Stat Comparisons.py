@@ -64,7 +64,7 @@ col_name_and_title = {
     'hrs_p_wk': 'Average Hours per Week'
 }
 
-st.markdown('''<h4>Branch-wide Comparisons</h4>''', unsafe_allow_html=True)
+st.markdown('''<h4>Branch-wide Stat Comparisons</h4>''', unsafe_allow_html=True)
 branch = st.selectbox('Branch:', ['Hololive', 'Holostars'])
 if branch == 'Hololive':
     branch = df.iloc[:57] 
