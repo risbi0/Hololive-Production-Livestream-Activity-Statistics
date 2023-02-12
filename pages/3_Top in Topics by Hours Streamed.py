@@ -16,7 +16,7 @@ df = pd.read_csv('data/data.csv', index_col=[0])
 generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
 
 st.markdown('''<h4>Top in Topics by Hours Streamed</h4>''', unsafe_allow_html=True)
-st.caption('Top 20 for Hololive. Top 10 for Holostars.')
+st.caption('Comparing popular topics frequently streamed by the talents by branch. Top 20 for Hololive. Top 10 for Holostars.')
 
 topics = {
     'apex': 'Apex Legends',
