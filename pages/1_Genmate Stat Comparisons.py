@@ -1,33 +1,11 @@
+from init import init_page_config, init_markdown
 from plotly.subplots import make_subplots
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-st.set_page_config(
-    page_title='Hololive Production Livestream Activity Statistics',
-    initial_sidebar_state='collapsed',
-    layout='wide',
-    menu_items={
-        'About': '''
-            ##### Hololive Production Livestream Activity Statistics
-
-            Based on YouTube livestreams up to January 18, 2023, queried through Holodex API.
-        '''
-    }
-)
-
-st.markdown(
-    '''
-    <style>
-        ul[aria-activedescendant] ul[role="option"]:nth-child(n+3):nth-child(-n+7),
-        ul[aria-activedescendant] div:nth-child(n+1):nth-child(-n+5),
-        div[data-testid="stDecoration"], iframe, footer {
-            display: none !important;
-        }
-    </style>
-    ''',
-    unsafe_allow_html=True
-)
+init_page_config()
+init_markdown()
 
 def generation_names(gen):
     generations_full_name = [
@@ -78,6 +56,7 @@ generations = [
     'uproar', 'stars_en_1', 'stars_en_2'
 ]
 
+st.markdown('''<h4>Genmate Stat Comparisons</h4>''', unsafe_allow_html=True)
 gen = st.selectbox('Generation:', generations, format_func=generation_names)
 gen = generation_members[gen]
 names = df.loc[gen, 'full_name'].to_list()
@@ -115,10 +94,8 @@ for row in range(2):
             index += 1
 
 fig.update_layout(
-    go.Layout(
-        legend=dict(orientation='h'),
-        margin=dict(l=50, r=0, t=50, b=0)
-    ),
+    legend=dict(orientation='h'),
+    margin=dict(l=50, r=0, t=50, b=0),
     height=800,
     xaxis1=dict(visible=False, range=[0, max(values[0][0]) * 1.2]),
     yaxis1=dict(visible=False),

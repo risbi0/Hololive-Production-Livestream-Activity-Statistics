@@ -1,41 +1,16 @@
+from init import init_page_config, init_markdown
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-st.set_page_config(
-    page_title='Hololive Production Livestream Activity Statistics',
-    initial_sidebar_state='collapsed',
-    layout='wide',
-    menu_items={
-        'About': '''
-            ##### Hololive Production Livestream Activity Statistics
-
-            Based on YouTube livestreams up to January 18, 2023, queried through Holodex API.
-        '''
-    }
-)
-
-st.markdown(
-    '''
-    <style>
-        ul[aria-activedescendant] ul[role="option"]:nth-child(n+3):nth-child(-n+7),
-        ul[aria-activedescendant] div:nth-child(n+1):nth-child(-n+5),
-        div[data-testid="stDecoration"], iframe, footer {
-            display: none !important;
-        }
-        .main .block-container {
-            padding-top: 40px;
-        }
-    </style>
-    ''',
-    unsafe_allow_html=True
-)    
+init_page_config()
+init_markdown()
 
 def ordinal_suffix(n):
     if n % 100 in (11, 12, 13):
         return 'th'
     else:
-        return { 1: 'st', 2: 'nd', 3: 'rd' }.get(n % 10, 'th')\
+        return { 1: 'st', 2: 'nd', 3: 'rd' }.get(n % 10, 'th')
 
 def make_chart(col_name, chart_title):
     sub_df = branch.sort_values(col_name)[['full_name', col_name]]
@@ -45,13 +20,13 @@ def make_chart(col_name, chart_title):
     counter = len(sub_df)
 
     fig = go.Figure()
-    for value, name, in zip(values, names):
+    for name, value in zip(names, values):
         gen_color = generation_colors_names.loc[name, 'color']
         full_name = sub_df.loc[name, 'full_name']
         fig.add_trace(
             go.Bar(
-                y=[value],
                 x=[full_name],
+                y=[value],
                 text=value,
                 textposition='outside',
                 hovertemplate=f'{counter}{ordinal_suffix(counter)}, {value}, {full_name}',
@@ -66,11 +41,9 @@ def make_chart(col_name, chart_title):
         counter -= 1
 
     fig.update_layout(
-        go.Layout(
-            legend=dict(orientation='h', x=center_val, y=1.13),
-            margin=dict(l=0, r=0, t=50, b=0)
-        ),
         title=chart_title,
+        legend=dict(orientation='h', x=center_val, y=1.13),
+        margin=dict(l=0, r=0, t=50, b=0),
         height=500,
         yaxis=dict(visible=False)
     )
@@ -78,7 +51,6 @@ def make_chart(col_name, chart_title):
     st.plotly_chart(fig, use_container_width=True)
 
 df = pd.read_csv('data/data.csv', index_col=[0])
-colors = pd.read_csv('data/colors.csv', index_col=[0])
 generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
 df.drop('hololive', inplace=True)
 df['count'] = df['count'].astype(int)
@@ -92,6 +64,7 @@ col_name_and_title = {
     'hrs_p_wk': 'Average Hours per Week'
 }
 
+st.markdown('''<h4>Branch-wide Comparisons</h4>''', unsafe_allow_html=True)
 branch = st.selectbox('Branch:', ['Hololive', 'Holostars'])
 if branch == 'Hololive':
     branch = df.iloc[:57] 
