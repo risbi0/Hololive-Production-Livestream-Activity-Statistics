@@ -57,6 +57,7 @@ generations = [
 ]
 
 st.markdown('''<h4>Genmate Stat Comparisons</h4>''', unsafe_allow_html=True)
+st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by generation.')
 gen = st.selectbox('Generation:', generations, format_func=generation_names)
 gen = generation_members[gen]
 names = df.loc[gen, 'full_name'].to_list()

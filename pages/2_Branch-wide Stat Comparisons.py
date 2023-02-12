@@ -65,6 +65,7 @@ col_name_and_title = {
 }
 
 st.markdown('''<h4>Branch-wide Stat Comparisons</h4>''', unsafe_allow_html=True)
+st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by branch.')
 branch = st.selectbox('Branch:', ['Hololive', 'Holostars'])
 if branch == 'Hololive':
     branch = df.iloc[:57] 
