@@ -140,7 +140,7 @@ def main(name):
     sub_df.loc[name, 'missing_hr'] = round(livestream_details[name]['missing_length'] / 3600, 2)
     sub_df.loc[name, 'long_title'] = max['title']
     sub_df.loc[name, 'long_id'] = max['id']
-    sub_df.loc[name, 'long_date'] = max['date'].strftime('%B %d %Y')
+    sub_df.loc[name, 'long_date'] = f"{max['date'].strftime('%B')} {max['date'].strftime('%d').lstrip('0')}, {max['date'].strftime('%Y')}"
     sub_df.loc[name, 'long_length'] = max['length']
     sub_df.loc[name, 'hrs_p_wk'] = round(total_hrs / ((update_date - date(debut_date[2], debut_date[0], debut_date[1])).days / 7), 2)
     sub_df.loc[name, 'hour_data'] = ','.join(str(data) for data in hour_data)
