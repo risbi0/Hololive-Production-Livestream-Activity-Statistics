@@ -346,7 +346,7 @@ def to_timezone(mins):
     return f'(UTC{sign}{str(abs(9 + mins // 60)).zfill(2)}:{str(mins % 60).zfill(2)}) {timezone_abbr[time_offsets.index(mins)]}'
 
 df = pd.read_csv('data/data.csv', index_col=[0])
-colors = pd.read_csv('data/colors.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
 days = list(calendar.day_name)
 days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
 time_offsets = [
@@ -361,9 +361,9 @@ select = col1.selectbox('Hololive Production Member:', df['ch_name'].tolist())
 time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
 
 name = df.index[df['ch_name'] == select][0]
-main_color = f"#{colors.loc[name, 'most']}"
-sub_color = f"#{colors.loc[name, 'least']}"
-opp_color = f"#{colors.loc[name, 'zero']}"
+main_color = f"#{details.loc[name, 'most']}"
+sub_color = f"#{details.loc[name, 'least']}"
+opp_color = f"#{details.loc[name, 'zero']}"
 topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 
 st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)

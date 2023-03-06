@@ -20,7 +20,7 @@ def generation_names(gen):
     return generations_full_name[generations.index(gen)]
 
 df = pd.read_csv('data/data.csv', index_col=[0])
-colors = pd.read_csv('data/colors.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
 df['count'] = df['count'].astype(int)
 df['total_hrs'] = df['total_hrs'].astype(int)
 df['avg_mins'] = df['avg_mins'].astype(int)
@@ -64,7 +64,7 @@ names = df.loc[gen, 'full_name'].to_list()
 # arrange values to 2x2 grid
 values = [[df.loc[gen, col_name].to_list() for col_name in ['count', 'total_hrs']],
           [df.loc[gen, col_name].to_list() for col_name in ['avg_mins', 'hrs_p_wk']]]
-gen_colors = [f'#{hex}' for hex in colors.loc[gen, 'most'].to_list()]
+gen_colors = [f'#{hex}' for hex in details.loc[gen, 'most'].to_list()]
 
 fig = make_subplots(
     rows=2, cols=2,
