@@ -80,7 +80,7 @@ def main(name):
         if duration > max['length']:
             # details to dictionary
             max['title'] = title
-            max['id'] = f'https://youtu.be/{id}'
+            max['id'] = id
             max['date'] = start_iso
             max['length'] = duration
         
@@ -185,6 +185,3 @@ def process_data():
     main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
-
-if __name__ =='__main__':
-    process_data()
