@@ -283,7 +283,7 @@ def display_longest_stream():
         unsafe_allow_html=True
     )
 
-    details = [
+    stream_details = [
         f"<h5>{df.loc[name, 'long_title']}</h5>",
         f"<h5>{df.loc[name, 'long_date']}</h5>",
         f'''<h5>
@@ -291,7 +291,7 @@ def display_longest_stream():
             {round(df.loc[name, 'long_length'] % 60)} minute{plural(round(df.loc[name, 'long_length'] % 60))}
         </h5>'''
     ]
-    for detail in details:
+    for detail in stream_details:
         st.markdown(f'''
             <div class='stats'>
                 {detail}
