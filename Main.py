@@ -24,7 +24,8 @@ st.markdown(
             margin-bottom: 20px;
         }
         img:hover {
-            border: 3px solid rgb(250, 250, 250);
+            padding: 0 !important;
+            border-style: solid !important;
         }
         .main .block-container {
             padding-top: 0;
@@ -278,7 +279,10 @@ def display_longest_stream():
     cols = st.columns(3)
     cols[1].markdown(f'''
         <a href="{f"https://youtube.com/watch?v={df.loc[name, 'long_id']}"}" target="_blank">
-            <img src="{f"https://i.ytimg.com/vi/{df.loc[name, 'long_id']}/maxresdefault.jpg"}">
+            <img
+                src="{f"https://i.ytimg.com/vi/{df.loc[name, 'long_id']}/maxresdefault.jpg"}"
+                style="padding: 3px; border: 3px hidden {main_color};"
+            >
         </a>''',
         unsafe_allow_html=True
     )
