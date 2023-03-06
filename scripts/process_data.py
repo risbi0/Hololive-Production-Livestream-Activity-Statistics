@@ -43,11 +43,10 @@ def main(name):
     weekday_data = [0 for _ in range(7)]
     hour_data = [0 for _ in range(12)]
     total_mins = 0
-    max_f = []
     max = {
         'title': None,
         'id': None,
-        'date': None,
+        'date': 0,
         'length': 0
     }
 
@@ -77,20 +76,13 @@ def main(name):
         if duration > 719: duration = 719
         hour_data[duration // 60] += 1
      
-        # get longest video
-        if duration >= max['length']: 
-            # multiple details if theyre of equal duration
-            if duration != max['length']:
-                max_f.clear()
-            
+        # get longest video (only the first when there are multiple longest videos with equal length)
+        if duration > max['length']:
             # details to dictionary
             max['title'] = title
             max['id'] = f'https://youtu.be/{id}'
-            max['date'] = start_iso.strftime('%B %d %Y').lstrip('0')
+            max['date'] = start_iso
             max['length'] = duration
-
-            # dictionary to list
-            max_f.append(max.copy())
         
         # heatmap
         for i in range(1440):
@@ -146,10 +138,10 @@ def main(name):
     sub_df.loc[name, 'avg_f'] = m_to_dhhmm(avg_mins * 60, False)
     sub_df.loc[name, 'missing'] = livestream_details[name]['missing']
     sub_df.loc[name, 'missing_hr'] = round(livestream_details[name]['missing_length'] / 3600, 2)
-    sub_df.loc[name, 'long_title'] = ', '.join(dct['title'] for dct in max_f)
-    sub_df.loc[name, 'long_id'] = ', '.join(dct['id'] for dct in max_f)
-    sub_df.loc[name, 'long_date'] = ', '.join(dct['date'] for dct in max_f)
-    sub_df.loc[name, 'long_length'] = max_f[0]['length']
+    sub_df.loc[name, 'long_title'] = max['title']
+    sub_df.loc[name, 'long_id'] = max['id']
+    sub_df.loc[name, 'long_date'] = max['date'].strftime('%B %d %Y')
+    sub_df.loc[name, 'long_length'] = max['length']
     sub_df.loc[name, 'hrs_p_wk'] = round(total_hrs / ((update_date - date(debut_date[2], debut_date[0], debut_date[1])).days / 7), 2)
     sub_df.loc[name, 'hour_data'] = ','.join(str(data) for data in hour_data)
     sub_df.loc[name, 'weekday_data'] = ','.join(str(data) for data in weekday_data)
@@ -193,3 +185,6 @@ def process_data():
     main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
+
+if __name__ =='__main__':
+    process_data()
