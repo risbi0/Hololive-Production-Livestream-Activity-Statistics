@@ -309,7 +309,7 @@ time_offsets = [
     30, 60, 90, 120, 180, 225, 240, 300
 ]
 
-col1, col2 = st.columns([1, 1])
+col1, col2 = st.columns(2)
 select = col1.selectbox('Hololive Production Member:', df['ch_name'].tolist())
 time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
 
