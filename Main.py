@@ -252,7 +252,6 @@ def display_archive_and_topics_charts():
 
     ah_col, topic_col = st.columns([2, 3])
     ah_col.plotly_chart(archive_health, use_container_width=True)
-    ah_col.caption('Does not represent the entirety of unarchived videos as the Holodex API does not record the duration on some of it, so it wasn\'t counted.')
     topic_col.plotly_chart(topics_bar, use_container_width=True)
 
 def to_timezone(mins):
