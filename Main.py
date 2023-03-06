@@ -15,7 +15,7 @@ st.markdown(
         h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
             display: none !important;
         }
-        h4, h5 {
+        h2, h4, h5 {
             text-align: center;
         }
         img {
@@ -370,7 +370,7 @@ sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
 topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 
-st.markdown(f"<h2 style='text-align: center;'>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()
