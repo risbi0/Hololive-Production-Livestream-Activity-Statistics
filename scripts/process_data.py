@@ -58,6 +58,7 @@ def main(name):
         stream_date = detail['date']
         vid_dur = detail['duration']
 
+        total_mins += round(vid_dur / 60)
         start_iso = datetime.strptime(stream_date, '%Y-%m-%dT%H:%M:%S.%fZ').replace(tzinfo=timezone('UTC')).astimezone(timezone('Asia/Tokyo'))
         end_iso = start_iso + timedelta(seconds=vid_dur)
         # start time & end time in mins since midnigth in JP timezone
@@ -119,7 +120,6 @@ def main(name):
     to_csv(top_10_topics.sort_values(1), name, 'topics', has_header=False)
 
     # save stats to own csv, to be later combined
-    total_mins += round(vid_dur / 60)
     livestream_count = round(len(livestream_details[name]['details']))
     total_hrs = round(total_mins / 60)
     avg_mins = round(total_mins / livestream_count)
