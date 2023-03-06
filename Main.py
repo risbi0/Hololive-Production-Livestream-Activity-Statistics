@@ -288,17 +288,15 @@ def display_longest_stream():
     )
 
     stream_details = [
-        f"<h5>{df.loc[name, 'long_title']}</h5>",
-        f"<h5>{df.loc[name, 'long_date']}</h5>",
-        f'''<h5>
-            {round(df.loc[name, 'long_length'] // 60)} hour{plural(round(df.loc[name, 'long_length'] // 60))}, 
-            {round(df.loc[name, 'long_length'] % 60)} minute{plural(round(df.loc[name, 'long_length'] % 60))}
-        </h5>'''
+        f"{df.loc[name, 'long_title']}",
+        f"{df.loc[name, 'long_date']}",
+        f'''{round(df.loc[name, 'long_length'] // 60)} hour{plural(round(df.loc[name, 'long_length'] // 60))}, 
+            {round(df.loc[name, 'long_length'] % 60)} minute{plural(round(df.loc[name, 'long_length'] % 60))}'''
     ]
     for detail in stream_details:
         st.markdown(f'''
             <div class='stats'>
-                {detail}
+                <h5>{detail}</h5>
             </div>''',
             unsafe_allow_html=True
         )
