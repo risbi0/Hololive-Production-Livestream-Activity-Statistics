@@ -32,7 +32,7 @@ def to_HHMM(i):
 
 def to_csv(df, folder_name, filename, has_header=True, has_index=True):
     df.to_csv(
-        os.path.join(curr_file_path, f'../data/{folder_name}/{filename}.csv'),
+        f'data/{folder_name}/{filename}.csv',
         header=has_header,
         index=has_index
     )
@@ -101,7 +101,7 @@ def main(name):
                 heatmap_data[end_day][i] += 1
 
     # delete old files
-    old_files = glob.glob(os.path.join(curr_file_path, f'../data/{name}/*'))
+    old_files = glob.glob(f'data/{name}/*')
     for file in old_files:
         os.remove(file)
 
@@ -124,7 +124,7 @@ def main(name):
     total_hrs = round(total_mins / 60)
     avg_mins = round(total_mins / livestream_count)
     debut_date = [int(s) for s in details.loc[name, 'debut_date'].split('/')]
-    update_date = date(2023, 1, 18)
+    update_date = date.today()
     if name == 'rushia':
         update_date = date(2022, 2, 24)
     elif name == 'coco':
@@ -162,12 +162,12 @@ def dequeue(queue):
         print(f'Processing: {holomem}')
         main(holomem)
 
-curr_file_path = os.path.dirname(__file__)
-details = pd.read_csv(os.path.join(curr_file_path, '../data/details.csv'), index_col=[0])
-with open(os.path.join(curr_file_path, '../json/livestream_details.json'), encoding='utf8') as file:
+details = pd.read_csv('data/details.csv', index_col=[0])
+with open('json/livestream_details.json', encoding='utf8') as file:
     livestream_details = json.load(file)
 
-if __name__ == '__main__':
+def process_data():
+    print('Running process_data.py')
     start = perf_counter()
     
     # run main method under multiprocessing
@@ -187,9 +187,9 @@ if __name__ == '__main__':
         ]
     )
     for holomem in details.index:
-        sub_df = pd.read_csv(os.path.join(curr_file_path, f'../data/{holomem}/data.csv'), index_col=[0])
+        sub_df = pd.read_csv(f'data/{holomem}/data.csv', index_col=[0])
         main_df = pd.concat([main_df, sub_df])
 
-    main_df.to_csv(os.path.join(curr_file_path, '../data/data.csv'))
+    main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
