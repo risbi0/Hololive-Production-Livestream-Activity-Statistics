@@ -2,7 +2,6 @@ from time import perf_counter
 import json, requests
     
 channel_ids = {
-    'hololive': 'UCJFZiqLMntJufDCHc6bQixg',
     'sora':     'UCp6993wxpyDPHUpavwDFqgg',
     'roboco':   'UCDqI2jOz0weumE8s7paEk6g',
     'miko':     'UC-hM6YJuNYVAmUWxeIr9FeA',
