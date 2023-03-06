@@ -303,7 +303,7 @@ def display_longest_stream():
             unsafe_allow_html=True
         )
 
-    st.caption('<div class="stats">Earliest longest stream if there are multiple longest streams with the same duration</div>', unsafe_allow_html=True)
+    st.caption('<div class="stats">Rounded to the nearest minute. Earliest longest stream if there are multiple longest streams with the same duration.</div>', unsafe_allow_html=True)
 
 def to_timezone(mins):
     timezone_abbr = [
