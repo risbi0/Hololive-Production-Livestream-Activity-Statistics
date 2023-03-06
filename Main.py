@@ -12,6 +12,17 @@ init_markdown()
 st.markdown(
     '''
     <style>
+        h4, h5 {
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            border: 3px solid transparent;
+            margin-bottom: 20px;
+        }
+        img:hover {
+            border: 3px solid rgb(250, 250, 250);
+        }
         .main .block-container {
             padding-top: 0;
         }
@@ -254,6 +265,39 @@ def display_archive_and_topics_charts():
     ah_col.plotly_chart(archive_health, use_container_width=True)
     topic_col.plotly_chart(topics_bar, use_container_width=True)
 
+def display_longest_stream():
+    st.markdown(f'''
+        <div class='stats'>
+            <h4>Longest Stream</h4>
+        </div>''',
+        unsafe_allow_html=True
+    )
+    cols = st.columns(3)
+    cols[1].markdown(f'''
+        <a href="{f"https://youtube.com/watch?v={df.loc[name, 'long_id']}"}" target="_blank">
+            <img src="{f"https://i.ytimg.com/vi/{df.loc[name, 'long_id']}/maxresdefault.jpg"}">
+        </a>''',
+        unsafe_allow_html=True
+    )
+
+    details = [
+        f"<h5>{df.loc[name, 'long_title']}</h5>",
+        f"<h5>{df.loc[name, 'long_date']}</h5>",
+        f'''<h5>
+            {round(df.loc[name, 'long_length'] // 60)} hour{plural(round(df.loc[name, 'long_length'] // 60))}, 
+            {round(df.loc[name, 'long_length'] % 60)} minute{plural(round(df.loc[name, 'long_length'] % 60))}
+        </h5>'''
+    ]
+    for detail in details:
+        st.markdown(f'''
+            <div class='stats'>
+                {detail}
+            </div>''',
+            unsafe_allow_html=True
+        )
+
+    st.caption('<div class="stats">Earliest longest stream if there are multiple longest streams with the same duration</div>', unsafe_allow_html=True)
+
 def to_timezone(mins):
     timezone_abbr = [
         'BIT / IDLW',
@@ -324,3 +368,4 @@ display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()
 display_archive_and_topics_charts()
+display_longest_stream()
