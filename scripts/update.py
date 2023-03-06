@@ -93,6 +93,7 @@ def update():
         # query API
         response = requests.get(f'https://holodex.net/api/v2/channels/{channel_id}/videos?limit=50')
         data = json.loads(response.text)
+        data.reverse()
        
         for i in range(len(data)):
             # check first if id wasn't already processed
@@ -108,7 +109,7 @@ def update():
                     details['duration'] = data[i]['duration']
                     details['date'] = data[i]['available_at']
                     details['topic'] = topic
-                    livestream_details[name]['details'].insert(0, details)
+                    livestream_details[name]['details'].append(details)
                     # topics
                     if topic not in livestream_details[name]['topics']:
                         livestream_details[name]['topics'][topic] = [0 for _ in range(2)]
