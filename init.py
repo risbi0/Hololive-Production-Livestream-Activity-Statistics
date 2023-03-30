@@ -9,7 +9,7 @@ def init_page_config():
             'About': '''
                 ##### Hololive Production Livestream Activity Statistics
 
-                Based on YouTube livestreams up to **March 6, 2023**, queried through Holodex API.
+                Based on YouTube livestreams up to **March 30, 2023**, queried through Holodex API.
 
                 Only including videos where the API has a record of its duration. This is in regards to some unarchived videos having their durations unrecorded.
             '''
