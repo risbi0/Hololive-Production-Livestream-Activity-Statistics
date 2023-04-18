@@ -1,4 +1,3 @@
-from multiprocessing import Process, Queue
 from datetime import date, datetime, timedelta
 from pytz import timezone
 from time import perf_counter
@@ -148,12 +147,6 @@ def main(name):
 
     to_csv(sub_df, name, 'data')
 
-def dequeue(queue):
-    while not queue.empty():
-        holomem = queue.get()
-        print(f'Processing: {holomem}')
-        main(holomem)
-
 details = pd.read_csv('data/details.csv', index_col=[0])
 with open('json/livestream_details.json', encoding='utf8') as file:
     livestream_details = json.load(file)
@@ -162,12 +155,9 @@ def process_data():
     print('Running process_data.py')
     start = perf_counter()
 
-    # run main method under multiprocessing
-    queue = Queue()
-    for holomem in details.index: queue.put(holomem)
-    processes = [Process(target=dequeue, args=(queue,)) for _ in range(os.cpu_count())]
-    for process in processes: process.start()
-    for process in processes: process.join()
+    for holomem in details.index:
+        print(f'Processing: {holomem}')
+        main(holomem)
 
     # combine individual stats to main csv file
     main_df = pd.DataFrame(
