@@ -1,8 +1,14 @@
 from datetime import date, datetime, timedelta
 from pytz import timezone
 from time import perf_counter
+from googleapiclient.discovery import build
+from dotenv import load_dotenv
 import pandas as pd
 import os, glob, json
+
+load_dotenv()
+YT_DATA_API_KEY = os.getenv('YT_DATA_API_KEY')
+youtube = build('youtube', 'v3', developerKey=YT_DATA_API_KEY)
 
 def timings(time):
     weekday = time.weekday() + 1
@@ -77,11 +83,14 @@ def main(name):
 
         # get longest video (only the first when there are multiple longest videos with equal length)
         if duration > max['length']:
-            # details to dictionary
-            max['title'] = title
-            max['id'] = id
-            max['date'] = start_iso
-            max['length'] = duration
+            response = youtube.videos().list(part='snippet,status', id=id).execute()
+            # add only publicly available videos (except for nuked channels)
+            if len(response['items']) != 0 or name in ['rushia', 'kaoru']:
+                # add details to dictionary
+                max['title'] = title
+                max['id'] = id
+                max['date'] = start_iso
+                max['length'] = duration
 
         # heatmap
         for i in range(1440):
