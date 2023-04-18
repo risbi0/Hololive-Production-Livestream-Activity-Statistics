@@ -9,7 +9,7 @@ HOLOLIVE = [
     'mio', 'okayu', 'korone',
     'pekora', 'rushia', 'flare', 'noel', 'marine',
     'kanata', 'coco', 'watame', 'towa', 'luna',
-    'lamy', 'nene', 'botan', 'polka', 
+    'lamy', 'nene', 'botan', 'polka',
     'laplus', 'lui', 'koyori', 'chloe', 'iroha',
     'risu', 'moona', 'iofi',
     'ollie', 'anya', 'reine',
@@ -56,5 +56,5 @@ def topics():
 
             top = pd.DataFrame.from_dict(dct, orient='index').sort_values(0, ascending=False).head(places)
             top.sort_values(0).to_csv(f'data/{branch}_{topic}.csv', header=None)
-            
+
     print('Done.')

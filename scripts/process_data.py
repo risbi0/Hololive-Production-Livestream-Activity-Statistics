@@ -64,7 +64,7 @@ def main(name):
         # and day of the week (sun = 0, ..., sat = 6)
         start_time, start_day = timings(start_iso)
         end_time, end_day = timings(end_iso)
-        
+
         # data
         # streams per day
         weekday_data[start_day] += 1
@@ -75,7 +75,7 @@ def main(name):
         if duration < 1: duration = 1
         if duration > 719: duration = 719
         hour_data[duration // 60] += 1
-     
+
         # get longest video (only the first when there are multiple longest videos with equal length)
         if duration > max['length']:
             # details to dictionary
@@ -83,7 +83,7 @@ def main(name):
             max['id'] = id
             max['date'] = start_iso
             max['length'] = duration
-        
+
         # heatmap
         for i in range(1440):
             if (i >= start_time and i <= end_time and same_day_stream) or \
@@ -100,7 +100,7 @@ def main(name):
     # create folder if folder doesn't exist
     if not os.path.isdir(f'data/{name}'):
         os.mkdir(f'data/{name}')
- 
+
     # save heatmap
     to_csv(pd.DataFrame(heatmap_data), name, 'heatmap', has_header=False, has_index=False)
 
@@ -108,7 +108,7 @@ def main(name):
     topics_df = pd.DataFrame.from_dict(livestream_details[name]['topics'], orient='index')
     top_10_topics = topics_df.sort_values(1, ascending=False).drop('undefined').head(10)
     top_10_topics[1] = top_10_topics[1].apply(lambda x: round(x / 3600))
-    
+
     to_csv(top_10_topics.sort_values(1), name, 'topics', has_header=False)
 
     # save stats to own csv, to be later combined
@@ -145,7 +145,7 @@ def main(name):
     sub_df.loc[name, 'hrs_p_wk'] = round(total_hrs / ((update_date - date(debut_date[2], debut_date[0], debut_date[1])).days / 7), 2)
     sub_df.loc[name, 'hour_data'] = ','.join(str(data) for data in hour_data)
     sub_df.loc[name, 'weekday_data'] = ','.join(str(data) for data in weekday_data)
-    
+
     to_csv(sub_df, name, 'data')
 
 def dequeue(queue):
@@ -161,7 +161,7 @@ with open('json/livestream_details.json', encoding='utf8') as file:
 def process_data():
     print('Running process_data.py')
     start = perf_counter()
-    
+
     # run main method under multiprocessing
     queue = Queue()
     for holomem in details.index: queue.put(holomem)

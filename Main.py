@@ -97,7 +97,7 @@ def display_heatmap():
         tooltip.append(list())
         for i, time in enumerate(times):
             tooltip[-1].append(f'Time: {time}<br />Day: {days[index]}<br />Count: {row[i]}')
-        
+
         row_arr = row.to_numpy()
         sub_fig = go.Heatmap(
             y=[days_short[index]],
@@ -131,7 +131,7 @@ def display_heatmap():
     st.markdown('<p id="heatmap-title">Livestream Timeseries Heatmap</p>', unsafe_allow_html=True)
     st.plotly_chart(heatmap, use_container_width=True)
     st.caption('''
-        Lightest and darkest tint represent the least and most frequent streamed times of the day respectively. 
+        Lightest and darkest tint represent the least and most frequent streamed times of the day respectively.
         Opposite/complementary color of the darkest tint represent 0 streaming times.
     ''')
 
@@ -261,7 +261,7 @@ def display_archive_and_topics_charts():
         legend_traceorder='reversed'
     )
     topics_bar.update_yaxes(showgrid=True)
-    
+
     for index, trace in enumerate(topics_bar.data):
         trace.update(name=topics_legend[index])
 
@@ -290,7 +290,7 @@ def display_longest_stream():
     stream_details = [
         f"{df.loc[name, 'long_title']}",
         f"{df.loc[name, 'long_date']}",
-        f'''{round(df.loc[name, 'long_length'] // 60)} hour{plural(round(df.loc[name, 'long_length'] // 60))}, 
+        f'''{round(df.loc[name, 'long_length'] // 60)} hour{plural(round(df.loc[name, 'long_length'] // 60))},
             {round(df.loc[name, 'long_length'] % 60)} minute{plural(round(df.loc[name, 'long_length'] % 60))}'''
     ]
     for detail in stream_details:

@@ -4,7 +4,7 @@ import json, requests, os
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
-    
+
 channel_ids = {
     'sora':     'UCp6993wxpyDPHUpavwDFqgg',
     'roboco':   'UCDqI2jOz0weumE8s7paEk6g',
@@ -98,7 +98,7 @@ def update():
         response = requests.get(f'https://holodex.net/api/v2/channels/{channel_id}/videos?limit=50', headers={'X-APIKEY': API_KEY})
         data = json.loads(response.text)
         data.reverse()
-       
+
         for i in range(len(data)):
             # check first if id wasn't already processed
             if not any(detail['id'] == data[i]['id'] for detail in livestream_details[name]['details']):

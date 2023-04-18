@@ -19,8 +19,8 @@ st.markdown('''<h4>Top in Topics by Hours Streamed</h4>''', unsafe_allow_html=Tr
 st.caption('Comparing popular topics frequently streamed by the talents by branch. Top 20 for Hololive. Top 10 for Holostars.')
 st.caption(
     '''
-    Some talents' hour count on certain topics may have a large difference compared to the actual count. 
-    This is apparent in the Singing topic where some non-JP members have a majority of their singing streams as unarchived, 
+    Some talents' hour count on certain topics may have a large difference compared to the actual count.
+    This is apparent in the Singing topic where some non-JP members have a majority of their singing streams as unarchived,
     and the durations of the unarchived streams have little chance to be recorded by Holodex API.
     '''
 )
@@ -73,6 +73,6 @@ for topic, chart_title in topics.items():
         xaxis=dict(visible=False, range=[0, max(topics_df[1]) * 1.1])
     )
     fig.update_xaxes(fixedrange=True)
-    
+
     cols[index // 2][index % 2].plotly_chart(fig, use_container_width=True)
     index += 1
