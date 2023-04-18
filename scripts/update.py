@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import json, requests, os
 
 load_dotenv()
-API_KEY = os.getenv('API_KEY')
+HOLODEX_API_KEY = os.getenv('HOLODEX_API_KEY')
 
 channel_ids = {
     'sora':     'UCp6993wxpyDPHUpavwDFqgg',
@@ -95,7 +95,7 @@ def update():
     for name, channel_id in channel_ids.items():
         print(f'Updating: {name.capitalize()}')
         # query API
-        response = requests.get(f'https://holodex.net/api/v2/channels/{channel_id}/videos?limit=50', headers={'X-APIKEY': API_KEY})
+        response = requests.get(f'https://holodex.net/api/v2/channels/{channel_id}/videos?limit=50', headers={'X-APIKEY': HOLODEX_API_KEY})
         data = json.loads(response.text)
         data.reverse()
 
