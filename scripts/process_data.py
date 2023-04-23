@@ -125,6 +125,8 @@ def main(name):
     avg_mins = round(total_mins / livestream_count)
     debut_date = [int(s) for s in details.loc[name, 'debut_date'].split('/')]
     update_date = date.today()
+
+    '''
     if name == 'rushia':
         update_date = date(2022, 2, 24)
     elif name == 'coco':
@@ -135,6 +137,7 @@ def main(name):
         update_date = date(2020, 11, 30)
     elif name == 'kaoru':
         update_date = date(2020, 7, 28)
+    '''
 
     sub_df = pd.DataFrame()
     sub_df.loc[name, 'full_name'] = details.loc[name, 'full_name']
@@ -165,8 +168,10 @@ def process_data():
     start = perf_counter()
 
     for holomem in details.index:
-        print(f'Processing: {holomem}')
-        main(holomem)
+        # skip inactive talents
+        if holomem not in ['rushia', 'coco', 'sana', 'kira', 'kaoru']:
+            print(f'Processing: {holomem}')
+            main(holomem)
 
     # combine individual stats to main csv file
     main_df = pd.DataFrame(
