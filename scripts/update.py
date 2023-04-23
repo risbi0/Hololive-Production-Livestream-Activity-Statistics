@@ -124,6 +124,9 @@ def update():
                         livestream_details[name]['missing'] += 1
                         livestream_details[name]['missing_length'] += data[i]['duration']
 
+        # sort topics alphabetically
+        livestream_details[name]['topics'] = dict(sorted(livestream_details[name]['topics'].items(), key=lambda l: l[0].lower()))
+
     with open('json/livestream_details.json', 'w', encoding='utf-8') as file:
         json.dump(livestream_details, file, ensure_ascii=False)
 
