@@ -68,8 +68,8 @@ def display_individual_stats():
     stat_headers = ['Total Livestreams', 'Total Hours', 'Average Duration per Stream']
     stat_details = [
         f"{round(df.loc[name, 'count']):,}",
-        f"{round(df.loc[name, 'total_hrs']):,} ({hrs_dd_hh_mm[0]} days, {hrs_dd_hh_mm[1].lstrip('0')} hour{plural(hrs_dd_hh_mm[1])}, {hrs_dd_hh_mm[2].lstrip('0')} minute{plural(hrs_dd_hh_mm[2])})",
-        f"{avg_mins_hh_mm[0]} hour{plural(avg_mins_hh_mm[0])}, {avg_mins_hh_mm[1].lstrip('0')} minute{plural(avg_mins_hh_mm[1])}"
+        f"{round(df.loc[name, 'total_hrs']):,} ({hrs_dd_hh_mm[0]} days, {hrs_dd_hh_mm[1].lstrip('0') if hrs_dd_hh_mm[1].lstrip('0') != '' else '0'} hour{plural(hrs_dd_hh_mm[1])}, {hrs_dd_hh_mm[2].lstrip('0')} minute{plural(hrs_dd_hh_mm[2])})",
+        f"{avg_mins_hh_mm[0]} hour{plural(avg_mins_hh_mm[0])}, {avg_mins_hh_mm[1].lstrip('0') if avg_mins_hh_mm[1].lstrip('0') != '' else '0'} minute{plural(avg_mins_hh_mm[1])}"
     ]
 
     col = st.columns(3)
