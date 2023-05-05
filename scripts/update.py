@@ -6,6 +6,7 @@ load_dotenv()
 HOLODEX_API_KEY = os.getenv('HOLODEX_API_KEY')
 
 channel_ids = {
+    'hololive': 'UCJFZiqLMntJufDCHc6bQixg',
     'sora':     'UCp6993wxpyDPHUpavwDFqgg',
     'roboco':   'UCDqI2jOz0weumE8s7paEk6g',
     'miko':     'UC-hM6YJuNYVAmUWxeIr9FeA',
