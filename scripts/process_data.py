@@ -82,7 +82,7 @@ def main(name):
         hour_data[duration // 60] += 1
 
         # get longest video (only the first when there are multiple longest videos with equal length)
-        if duration > max['length']:
+        if duration > data.loc[name, 'long_length']:
             response = youtube.videos().list(part='snippet,status', id=id).execute()
             # add only publicly available videos (except for nuked channels)
             if len(response['items']) != 0 or name in ['rushia', 'kaoru']:
@@ -149,16 +149,23 @@ def main(name):
     sub_df.loc[name, 'avg_f'] = m_to_dhhmm(avg_mins * 60, False)
     sub_df.loc[name, 'missing'] = livestream_details[name]['missing']
     sub_df.loc[name, 'missing_hr'] = round(livestream_details[name]['missing_length'] / 3600, 2)
-    sub_df.loc[name, 'long_title'] = max['title']
-    sub_df.loc[name, 'long_id'] = max['id']
-    sub_df.loc[name, 'long_date'] = f"{max['date'].strftime('%B')} {max['date'].strftime('%d').lstrip('0')}, {max['date'].strftime('%Y')}"
-    sub_df.loc[name, 'long_length'] = max['length']
+    if max['title'] != None: # save new longest video's details
+        sub_df.loc[name, 'long_title'] = max['title']
+        sub_df.loc[name, 'long_id'] = max['id']
+        sub_df.loc[name, 'long_date'] = f"{max['date'].strftime('%B')} {max['date'].strftime('%d').lstrip('0')}, {max['date'].strftime('%Y')}"
+        sub_df.loc[name, 'long_length'] = max['length']
+    else: # save old details
+        sub_df.loc[name, 'long_title'] = data.loc[name, 'long_title']
+        sub_df.loc[name, 'long_id'] = data.loc[name, 'long_id']
+        sub_df.loc[name, 'long_date'] = data.loc[name, 'long_date']
+        sub_df.loc[name, 'long_length'] = data.loc[name, 'long_length']
     sub_df.loc[name, 'hrs_p_wk'] = round(total_hrs / ((update_date - date(debut_date[2], debut_date[0], debut_date[1])).days / 7), 2)
     sub_df.loc[name, 'hour_data'] = ','.join(str(data) for data in hour_data)
     sub_df.loc[name, 'weekday_data'] = ','.join(str(data) for data in weekday_data)
 
     to_csv(sub_df, name, 'data')
 
+data = pd.read_csv('data/data.csv', index_col=[0])
 details = pd.read_csv('data/details.csv', index_col=[0])
 with open('json/livestream_details.json', encoding='utf8') as file:
     livestream_details = json.load(file)
@@ -189,3 +196,5 @@ def process_data():
     main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
+
+process_data()
