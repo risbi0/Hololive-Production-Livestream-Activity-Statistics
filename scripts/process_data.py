@@ -196,5 +196,3 @@ def process_data():
     main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
-
-process_data()
