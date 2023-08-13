@@ -17,13 +17,6 @@ generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_
 
 st.markdown('''<h4>Top in Topics by Hours Streamed</h4>''', unsafe_allow_html=True)
 st.caption('Comparing popular topics frequently streamed by the talents by branch. Top 20 for Hololive. Top 10 for Holostars.')
-st.caption(
-    '''
-    Some talents' hour count on certain topics may have a large difference compared to the actual count.
-    This is apparent in the Singing topic where some non-JP members have a majority of their singing streams as unarchived,
-    and the durations of the unarchived streams have little chance to be recorded by Holodex API.
-    '''
-)
 
 topics = {
     'apex': 'Apex Legends',
