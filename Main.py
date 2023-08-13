@@ -268,6 +268,7 @@ def display_archive_and_topics_charts():
     ah_col, topic_col = st.columns([2, 3])
     ah_col.plotly_chart(archive_health, use_container_width=True)
     topic_col.plotly_chart(topics_bar, use_container_width=True)
+    topic_col.caption('Sorted by duration.')
 
 def display_longest_stream():
     st.markdown(f'''

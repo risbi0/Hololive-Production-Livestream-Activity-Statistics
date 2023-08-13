@@ -67,11 +67,12 @@ col_name_and_title = {
 st.markdown('''<h4>Branch-wide Stat Comparisons</h4>''', unsafe_allow_html=True)
 st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by branch.')
 branch = st.selectbox('Branch:', ['Hololive', 'Holostars'])
+branch_cutoff = 61
 if branch == 'Hololive':
-    branch = df.iloc[:57]
+    branch = df.iloc[:branch_cutoff]
     center_val = 0.25
 else:
-    branch = df.iloc[57:]
+    branch = df.iloc[branch_cutoff:]
     center_val = 0.37
 
 for col_name, chart_title in col_name_and_title.items():

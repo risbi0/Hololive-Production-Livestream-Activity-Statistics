@@ -16,6 +16,7 @@ HOLOLIVE = [
     'zeta', 'kaela', 'kobo',
     'calli', 'kiara', 'ina', 'gura', 'ame',
     'irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae',
+    'shiori', 'bijou', 'nerissa', 'fuwamoco'
 ]
 
 HOLOSTARS = [

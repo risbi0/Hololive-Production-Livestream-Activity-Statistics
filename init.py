@@ -9,9 +9,11 @@ def init_page_config():
             'About': '''
                 ##### Hololive Production Livestream Activity Statistics
 
-                Based on YouTube livestreams up to **July 29, 2023** (all channels except the main Hololive channel), queried through Holodex API.
+                Based on YouTube livestreams up to **August 13, 2023**, queried through Holodex API.
 
-                Only including videos where the API has a record of its duration. This is in regards to some unarchived videos having their durations unrecorded.
+                Main Hololive channel is updated less frequently.
+
+                Data only includes videos where the API has a record of its duration, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams.
             '''
         }
     )

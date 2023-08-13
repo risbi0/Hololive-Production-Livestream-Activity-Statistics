@@ -6,7 +6,6 @@ load_dotenv()
 HOLODEX_API_KEY = os.getenv('HOLODEX_API_KEY')
 
 channel_ids = {
-    #'hololive': 'UCJFZiqLMntJufDCHc6bQixg',
     'sora':     'UCp6993wxpyDPHUpavwDFqgg',
     'roboco':   'UCDqI2jOz0weumE8s7paEk6g',
     'miko':     'UC-hM6YJuNYVAmUWxeIr9FeA',
@@ -61,6 +60,10 @@ channel_ids = {
     'kronii':   'UCmbs8T6MWqUHP1tIQvSgKrg',
     'mumei':    'UC3n5uGu18FoCy23ggWWp8tA',
     'bae':      'UCgmPnx-EEeOrZSg5Tiw7ZRQ',
+    'shiori':   'UCgnfPPb9JI3e9A4cXHnWbyg',
+    'bijou':    'UC9p_lqQ0FEDz327Vgf5JwqA',
+    'nerissa':  'UC_sFNM0z0MWm9A6WlKPuMMg',
+    'fuwamoco': 'UCt9H_RpQzhxzlyBxFqrdHqA',
     'miyabi':   'UC6t3-_N8A6ME1JShZHHqOMw',
     'izuru':    'UCZgOv3YDEs-ZnZWDYVwJdmA',
     'aruran':   'UCKeAhJvy8zgXWbh9duVjIaQ',
