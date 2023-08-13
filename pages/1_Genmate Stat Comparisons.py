@@ -12,9 +12,9 @@ def generation_names(gen):
         'Hololive JP 0th Generation', 'Hololive JP 1sh Generation', 'Hololive JP 2nd Generation',
         'GAMERS', 'Hololive JP 3rd Generation | hololive Fantasy', 'Hololive JP 4th Generation | holoForce',
         'Hololive JP 5th Generation | NePoLaBo', 'Hololive JP 6th Generation | holoX',
-        'ID 1st Generation | AREA 15', 'ID 2nd Generation | holoro', 'ID 3rd Generation | holo3ro',
         'Hololive EN 1st Generation | Myth', 'Hololive EN 2nd Generation | Council + Project: HOPE',
         'Hololive EN 3rd Generation | Advent',
+        'ID 1st Generation | AREA 15', 'ID 2nd Generation | holoro', 'ID 3rd Generation | holo3ro',
         'Holostars JP 1st Generation', 'Holostars JP 2nd Generation | SunTempo', 'Holostars JP 3rd Generation | TriNero',
         'UPROAR!!', 'Holostars EN 1st Generation | TEMPUS HQ', 'Holostars EN 2nd Generation | TEMPUS Vanguard'
     ]
@@ -35,12 +35,12 @@ generation_members = {
     'live_jp_4': ['kanata', 'coco', 'watame', 'towa', 'luna'],
     'live_jp_5': ['lamy', 'nene', 'botan', 'polka'],
     'live_jp_6': ['laplus', 'lui', 'koyori', 'chloe', 'iroha'],
-    'id_1': ['risu', 'moona', 'iofi'],
-    'id_2': ['ollie', 'anya', 'reine'],
-    'id_3': ['zeta', 'kaela', 'kobo'],
     'live_en_1': ['calli', 'kiara', 'ina', 'gura', 'ame'],
     'councilrys': ['irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae'],
     'advent': ['shiori', 'bijou', 'nerissa', 'fuwamoco'],
+    'id_1': ['risu', 'moona', 'iofi'],
+    'id_2': ['ollie', 'anya', 'reine'],
+    'id_3': ['zeta', 'kaela', 'kobo'],
     'stars_jp_1': ['miyabi', 'kira', 'izuru', 'aruran', 'rikka'],
     'stars_jp_2': ['astel', 'temma', 'roberu'],
     'stars_jp_3': ['kaoru', 'shien', 'oga'],
@@ -52,8 +52,8 @@ generations = [
     'live_jp_0', 'live_jp_1', 'live_jp_2',
     'gamers', 'live_jp_3', 'live_jp_4',
     'live_jp_5', 'live_jp_6',
-    'id_1', 'id_2', 'id_3',
     'live_en_1', 'councilrys', 'advent',
+    'id_1', 'id_2', 'id_3',
     'stars_jp_1', 'stars_jp_2', 'stars_jp_3',
     'uproar', 'stars_en_1', 'stars_en_2'
 ]

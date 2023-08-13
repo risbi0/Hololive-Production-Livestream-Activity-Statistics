@@ -11,12 +11,12 @@ HOLOLIVE = [
     'kanata', 'coco', 'watame', 'towa', 'luna',
     'lamy', 'nene', 'botan', 'polka',
     'laplus', 'lui', 'koyori', 'chloe', 'iroha',
-    'risu', 'moona', 'iofi',
-    'ollie', 'anya', 'reine',
-    'zeta', 'kaela', 'kobo',
     'calli', 'kiara', 'ina', 'gura', 'ame',
     'irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae',
-    'shiori', 'bijou', 'nerissa', 'fuwamoco'
+    'shiori', 'bijou', 'nerissa', 'fuwamoco',
+    'risu', 'moona', 'iofi',
+    'ollie', 'anya', 'reine',
+    'zeta', 'kaela', 'kobo'
 ]
 
 HOLOSTARS = [
