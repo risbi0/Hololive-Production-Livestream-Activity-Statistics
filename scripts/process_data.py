@@ -82,7 +82,7 @@ def main(name):
         hour_data[duration // 60] += 1
 
         # get longest video (only the first when there are multiple longest videos with equal length)
-        if duration > data.loc[name, 'long_length']:
+        if duration > data.loc[name, 'long_length'] and duration > max['length']:
             response = youtube.videos().list(part='snippet,status', id=id).execute()
             # add only publicly available videos (except for nuked channels)
             if len(response['items']) != 0 or name in ['rushia', 'kaoru']:
