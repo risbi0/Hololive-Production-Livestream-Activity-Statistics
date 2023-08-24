@@ -131,8 +131,9 @@ def display_heatmap():
     st.markdown('<p id="heatmap-title">Livestream Timeseries Heatmap</p>', unsafe_allow_html=True)
     st.plotly_chart(heatmap, use_container_width=True)
     st.caption('''
-        Lightest and darkest tint represent the least and most frequent streamed times of the day respectively.
-        Opposite/complementary color of the darkest tint represent 0 streaming times.
+        Cumulative occurrence of streams condensed to the days of the week. Data points down to the minute.
+        Lightest and darkest tint represent the least and most frequent times of the day respectively.
+        Opposite color of the darkest tint represent 0 streaming times.
     ''')
 
 def bar_chart(name, col_name, x_labels, title, x_title, y_title):

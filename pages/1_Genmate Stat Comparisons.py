@@ -60,6 +60,7 @@ generations = [
 
 st.markdown('''<h4>Genmate Stat Comparisons</h4>''', unsafe_allow_html=True)
 st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by generation.')
+st.caption('Average hours per week is calculated from the week of the debut date up to the week of the graduation or termination date. A special case for Magni Dezmond and Noir Vesper; their end date is July 7, 2023 which is the last date both have streamed.')
 gen = st.selectbox('Generation:', generations, format_func=generation_names)
 gen = generation_members[gen]
 names = df.loc[gen, 'full_name'].to_list()
