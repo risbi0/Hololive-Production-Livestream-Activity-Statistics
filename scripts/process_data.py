@@ -176,7 +176,7 @@ def process_data():
 
     for holomem in details.index:
         # skip inactive talents
-        if holomem not in ['rushia', 'coco', 'sana', 'kira', 'kaoru']:
+        if holomem not in ['rushia', 'coco', 'sana', 'kira', 'kaoru', 'vesper', 'magni']:
             print(f'Processing: {holomem}')
             main(holomem)
 
