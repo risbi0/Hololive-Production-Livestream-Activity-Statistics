@@ -126,19 +126,7 @@ def main(name):
     debut_date = [int(s) for s in details.loc[name, 'debut_date'].split('/')]
     update_date = date.today()
 
-    '''
-    if name == 'rushia':
-        update_date = date(2022, 2, 24)
-    elif name == 'coco':
-        update_date = date(2021, 7, 1)
-    elif name == 'sana':
-        update_date = date(2022, 7, 31)
-    elif name == 'kira':
-        update_date = date(2020, 11, 30)
-    elif name == 'kaoru':
-        update_date = date(2020, 7, 28)
-    '''
-
+    # make DF to each member, to be later combined to main_df
     sub_df = pd.DataFrame()
     sub_df.loc[name, 'full_name'] = details.loc[name, 'full_name']
     sub_df.loc[name, 'ch_name'] = details.loc[name, 'ch_name']
