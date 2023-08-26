@@ -14,6 +14,8 @@ def init_page_config():
                 Main Hololive channel is updated less frequently.
 
                 Data only includes videos where the API has a record of its duration, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams.
+
+                The data collected may also contain unnecessary data since the API doesn't have a way of fetching livestreams only. I had to put some condition to filter most non-livestreams, with it having more than 360 seconds. This is why the main Hololive channel is updated separately.
             '''
         }
     )
