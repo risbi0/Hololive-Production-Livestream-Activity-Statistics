@@ -305,6 +305,32 @@ def display_longest_stream():
 
     st.caption('<div class="stats">Earliest longest archived stream. Rounded to the nearest minute.</div>', unsafe_allow_html=True)
 
+def display_hrs_per_week():
+    year_weeks = hrs_per_week.index.to_list()
+    hours = hrs_per_week['hours'].to_list()
+
+    bar_chart = go.Figure()
+    for year_week, hour in zip(year_weeks, hours):
+        bar_chart.add_trace(
+            go.Bar(
+                x=[year_week],
+                y=[hour],
+                hovertemplate=f'{year_week}, {hour}<extra></extra>',
+                marker=dict(color=main_color),
+                showlegend=False
+            )
+        )
+    bar_chart.update_layout(
+        title='Hours per Week',
+        margin=dict(l=0, r=0, t=50, b=0),
+        width=1500,
+        xaxis_type='category'
+    )
+    bar_chart.update_xaxes(title_text='Year-Week')
+    bar_chart.update_yaxes(title_text='Hours')
+    bar_chart.update_yaxes(fixedrange=True)
+    st.plotly_chart(bar_chart, use_container_width=True)
+
 def to_timezone(mins):
     timezone_abbr = [
         'BIT / IDLW',
@@ -369,10 +395,12 @@ main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
 topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
+hrs_per_week = pd.read_csv(f'data/{name}/hrs_per_week.csv', index_col=[0])
 
 st.markdown(f"<h2>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()
 display_archive_and_topics_charts()
+display_hrs_per_week()
 display_longest_stream()

@@ -4,7 +4,7 @@ from time import perf_counter
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
 import pandas as pd
-import os, glob, json
+import os, glob, json, pytz
 
 load_dotenv()
 YT_DATA_API_KEY = os.getenv('YT_DATA_API_KEY')
@@ -42,7 +42,76 @@ def to_csv(df, folder_name, filename, has_header=True, has_index=True):
         index=has_index
     )
 
+def hrs_per_week(name):
+    data_dict = {}
+
+    # add durations for each week
+    for detail in livestream_details[name]['details']:
+        stream_date = detail['date']
+        vid_dur = detail['duration'] / 3600
+        start_iso = datetime.strptime(stream_date, '%Y-%m-%dT%H:%M:%S.%fZ').replace(tzinfo=timezone('UTC')).astimezone(timezone('Asia/Tokyo'))
+        year = start_iso.year
+        week_no = int(start_iso.strftime('%U')) # week start on Sunday
+
+        # years with January 1 on sunday have its week no. from 1 to 53, adjusting it to be from 0 to 52
+        if datetime(year, 1, 1).weekday() == 6:
+            week_no -= 1
+
+        date = f'{year}-{week_no}'
+
+        if date not in data_dict:
+            data_dict[date] = 0
+
+        data_dict[date] += vid_dur
+
+    # add current year-week if there's no record of it
+    date_today = datetime.now(pytz.timezone('Asia/Tokyo'))
+    year = date_today.year
+    week_no = int(date_today.strftime('%U'))
+    curr_year_week = f'{year}-{week_no}'
+    if curr_year_week not in data_dict:
+        data_dict[curr_year_week] = 0
+
+    # add 0 hrs to inactive weeks
+    data_list = []
+    prev_year = None
+    prev_week = None
+
+    for year_week, dur in data_dict.items():
+        year, week = map(int, year_week.split('-'))
+
+        if len(data_list) == 0:
+            prev_year = year
+            prev_week = week
+            data_list.append([year_week, dur])
+            continue
+
+        while (year > prev_year) or (year == prev_year and week > prev_week + 1):
+            prev_week += 1
+
+            if prev_week > 52:
+                prev_week = 0
+                prev_year += 1
+
+            # break if next year's 1st week has a duration stored
+            if year == prev_year and week == 0:
+                break
+
+            data_list.append([f"{prev_year}-{prev_week}", 0])
+
+        data_list.append([year_week, dur])
+        prev_year = year
+        prev_week = week
+
+    # turn to dictionary
+    data_dict = { k: v for k, v in data_list }
+    # turn to dataframe
+    df = pd.DataFrame.from_dict(data_dict, orient='index', columns=['hours'])
+    df['hours'] = df['hours'].round(2) # round to 2 decimals
+    to_csv(df, name, 'hrs_per_week')
+
 def main(name):
+    hrs_per_week(name)
     # initialize variables
     heatmap_data = [[0 for _ in range(1440)] for _ in range(7)]
     weekday_data = [0 for _ in range(7)]
