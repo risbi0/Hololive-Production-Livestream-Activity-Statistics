@@ -224,12 +224,16 @@ def main(name):
 
 data = pd.read_csv('data/data.csv', index_col=[0])
 details = pd.read_csv('data/details.csv', index_col=[0])
-with open('json/livestream_details.json', encoding='utf8') as file:
-    livestream_details = json.load(file)
+def load_json():
+    global livestream_details
+
+    with open('json/livestream_details.json', encoding='utf8') as file:
+        livestream_details = json.load(file)
 
 def process_data():
     print('Running process_data.py')
     start = perf_counter()
+    load_json()
 
     for holomem in details.index:
         # skip inactive talents
