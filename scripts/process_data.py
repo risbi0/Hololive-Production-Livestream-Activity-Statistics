@@ -111,7 +111,6 @@ def hrs_per_week(name):
     to_csv(df, name, 'hrs_per_week')
 
 def main(name):
-    hrs_per_week(name)
     # initialize variables
     heatmap_data = [[0 for _ in range(1440)] for _ in range(7)]
     weekday_data = [0 for _ in range(7)]
@@ -221,6 +220,7 @@ def main(name):
     sub_df.loc[name, 'weekday_data'] = ','.join(str(data) for data in weekday_data)
 
     to_csv(sub_df, name, 'data')
+    hrs_per_week(name)
 
 data = pd.read_csv('data/data.csv', index_col=[0])
 details = pd.read_csv('data/details.csv', index_col=[0])
