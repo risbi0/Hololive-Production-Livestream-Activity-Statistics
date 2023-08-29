@@ -108,6 +108,7 @@ def update():
                 # details
                 if topic.lower() not in excluded_topics and \
                 'available_at' in data[i] and \
+                'rebroadcast' not in data[i]['title'].lower() and \
                 'duration' in data[i] and data[i]['duration'] > 360: # filter out Shorts and very short streams
                     details = {}
                     details['id'] = data[i]['id']
