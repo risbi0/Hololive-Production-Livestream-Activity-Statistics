@@ -182,7 +182,11 @@ def main(name):
 
     # save top 10 topics by streaming hrs
     topics_df = pd.DataFrame.from_dict(livestream_details[name]['topics'], orient='index')
-    top_10_topics = topics_df.sort_values(1, ascending=False).drop('undefined').head(10)
+    # check if there are no streams with undefined topic, mostly for new members
+    if 'undefined' not in topics_df.index.to_list():
+        top_10_topics = topics_df.sort_values(1, ascending=False).head(10)
+    else:
+        top_10_topics = topics_df.sort_values(1, ascending=False).drop('undefined').head(10)
     top_10_topics[1] = top_10_topics[1].apply(lambda x: round(x / 3600))
 
     to_csv(top_10_topics.sort_values(1), name, 'topics', has_header=False)
