@@ -11,6 +11,7 @@ HOLOLIVE = [
     'kanata', 'coco', 'watame', 'towa', 'luna',
     'lamy', 'nene', 'botan', 'polka',
     'laplus', 'lui', 'koyori', 'chloe', 'iroha',
+    'ao', 'kanade', 'ririka', 'raden', 'hajime'
     'calli', 'kiara', 'ina', 'gura', 'ame',
     'irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae',
     'shiori', 'bijou', 'nerissa', 'fuwamoco',

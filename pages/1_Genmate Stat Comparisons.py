@@ -35,6 +35,7 @@ generation_members = {
     'live_jp_4': ['kanata', 'coco', 'watame', 'towa', 'luna'],
     'live_jp_5': ['lamy', 'nene', 'botan', 'polka'],
     'live_jp_6': ['laplus', 'lui', 'koyori', 'chloe', 'iroha'],
+    'dev_is_1': ['ao', 'kanade', 'ririka', 'raden', 'hajime'],
     'live_en_1': ['calli', 'kiara', 'ina', 'gura', 'ame'],
     'councilrys': ['irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae'],
     'advent': ['shiori', 'bijou', 'nerissa', 'fuwamoco'],
@@ -48,15 +49,7 @@ generation_members = {
     'stars_en_1': ['altare', 'magni', 'axel', 'vesper'],
     'stars_en_2': ['bettel', 'flayon', 'hakka', 'shinri']
 }
-generations = [
-    'live_jp_0', 'live_jp_1', 'live_jp_2',
-    'gamers', 'live_jp_3', 'live_jp_4',
-    'live_jp_5', 'live_jp_6',
-    'live_en_1', 'councilrys', 'advent',
-    'id_1', 'id_2', 'id_3',
-    'stars_jp_1', 'stars_jp_2', 'stars_jp_3',
-    'uproar', 'stars_en_1', 'stars_en_2'
-]
+generations = list(generation_members.keys())
 
 st.markdown('''<h4>Genmate Stat Comparisons</h4>''', unsafe_allow_html=True)
 st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by generation.')
