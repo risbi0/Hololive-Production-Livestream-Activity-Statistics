@@ -12,6 +12,7 @@ def generation_names(gen):
         'Hololive JP 0th Generation', 'Hololive JP 1sh Generation', 'Hololive JP 2nd Generation',
         'GAMERS', 'Hololive JP 3rd Generation | hololive Fantasy', 'Hololive JP 4th Generation | holoForce',
         'Hololive JP 5th Generation | NePoLaBo', 'Hololive JP 6th Generation | holoX',
+        'Hololive DEV_IS | ReGLOSS',
         'Hololive EN 1st Generation | Myth', 'Hololive EN 2nd Generation | Council + Project: HOPE',
         'Hololive EN 3rd Generation | Advent',
         'ID 1st Generation | AREA 15', 'ID 2nd Generation | holoro', 'ID 3rd Generation | holo3ro',

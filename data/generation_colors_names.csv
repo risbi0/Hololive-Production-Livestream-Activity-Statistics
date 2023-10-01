@@ -36,50 +36,55 @@ lui,#FF68AD,JP 6,Hololive JP 6,8
 koyori,#FF68AD,JP 6,Hololive JP 6,8
 chloe,#FF68AD,JP 6,Hololive JP 6,8
 iroha,#FF68AD,JP 6,Hololive JP 6,8
-calli,#F2BF3A,EN,Hololive EN,9
-kiara,#F2BF3A,EN,Hololive EN,9
-ina,#F2BF3A,EN,Hololive EN,9
-gura,#F2BF3A,EN,Hololive EN,9
-ame,#F2BF3A,EN,Hololive EN,9
-irys,#F2BF3A,EN,Hololive EN,9
-fauna,#F2BF3A,EN,Hololive EN,9
-sana,#F2BF3A,EN,Hololive EN,9
-kronii,#F2BF3A,EN,Hololive EN,9
-mumei,#F2BF3A,EN,Hololive EN,9
-bae,#F2BF3A,EN,Hololive EN,9
-shiori,#F2BF3A,EN,Hololive EN,9
-bijou,#F2BF3A,EN,Hololive EN,9
-nerissa,#F2BF3A,EN,Hololive EN,9
-fuwamoco,#F2BF3A,EN,Hololive EN,9
-risu,#794EBE,ID,ID,10
-moona,#794EBE,ID,ID,10
-iofi,#794EBE,ID,ID,10
-ollie,#794EBE,ID,ID,10
-anya,#794EBE,ID,ID,10
-reine,#794EBE,ID,ID,10
-zeta,#794EBE,ID,ID,10
-kaela,#794EBE,ID,ID,10
-kobo,#794EBE,ID,ID,10
-miyabi,#F3BCC1,JP 1,Holostars JP 1,11
-kira,#F3BCC1,JP 1,Holostars JP 1,11
-izuru,#F3BCC1,JP 1,Holostars JP 1,11
-aruran,#F3BCC1,JP 1,Holostars JP 1,11
-rikka,#F3BCC1,JP 1,Holostars JP 1,11
-astel,#FA7C0C,JP 2,Holostars JP 2,12
-temma,#FA7C0C,JP 2,Holostars JP 2,12
-roberu,#FA7C0C,JP 2,Holostars JP 2,12
-kaoru,#A4FB41,JP 3,Holostars JP 3,13
-shien,#A4FB41,JP 3,Holostars JP 3,13
-oga,#A4FB41,JP 3,Holostars JP 3,13
-fuma,#B0B5DE,UPROAR,UPROAR,14
-uyu,#B0B5DE,UPROAR,UPROAR,14
-gamma,#B0B5DE,UPROAR,UPROAR,14
-rio,#B0B5DE,UPROAR,UPROAR,14
-altare,#5DB7E6,EN,Holostars EN,15
-magni,#5DB7E6,EN,Holostars EN,15
-axel,#5DB7E6,EN,Holostars EN,15
-vesper,#5DB7E6,EN,Holostars EN,15
-bettel,#5DB7E6,EN,Holostars EN,15
-flayon,#5DB7E6,EN,Holostars EN,15
-hakka,#5DB7E6,EN,Holostars EN,15
-shinri,#5DB7E6,EN,Holostars EN,15
+ao,#7F7F7F,DEV_IS,Hololive DEV_IS,9
+kanade,#7F7F7F,DEV_IS,Hololive DEV_IS,9
+ririka,#7F7F7F,DEV_IS,Hololive DEV_IS,9
+raden,#7F7F7F,DEV_IS,Hololive DEV_IS,9
+hajime,#7F7F7F,DEV_IS,Hololive DEV_IS,9
+calli,#F2BF3A,EN,Hololive EN,10
+kiara,#F2BF3A,EN,Hololive EN,10
+ina,#F2BF3A,EN,Hololive EN,10
+gura,#F2BF3A,EN,Hololive EN,10
+ame,#F2BF3A,EN,Hololive EN,10
+irys,#F2BF3A,EN,Hololive EN,10
+fauna,#F2BF3A,EN,Hololive EN,10
+sana,#F2BF3A,EN,Hololive EN,10
+kronii,#F2BF3A,EN,Hololive EN,10
+mumei,#F2BF3A,EN,Hololive EN,10
+bae,#F2BF3A,EN,Hololive EN,10
+shiori,#F2BF3A,EN,Hololive EN,10
+bijou,#F2BF3A,EN,Hololive EN,10
+nerissa,#F2BF3A,EN,Hololive EN,10
+fuwamoco,#F2BF3A,EN,Hololive EN,10
+risu,#794EBE,ID,ID,11
+moona,#794EBE,ID,ID,11
+iofi,#794EBE,ID,ID,11
+ollie,#794EBE,ID,ID,11
+anya,#794EBE,ID,ID,11
+reine,#794EBE,ID,ID,11
+zeta,#794EBE,ID,ID,11
+kaela,#794EBE,ID,ID,11
+kobo,#794EBE,ID,ID,11
+miyabi,#F3BCC1,JP 1,Holostars JP 1,12
+kira,#F3BCC1,JP 1,Holostars JP 1,12
+izuru,#F3BCC1,JP 1,Holostars JP 1,12
+aruran,#F3BCC1,JP 1,Holostars JP 1,12
+rikka,#F3BCC1,JP 1,Holostars JP 1,12
+astel,#FA7C0C,JP 2,Holostars JP 2,13
+temma,#FA7C0C,JP 2,Holostars JP 2,13
+roberu,#FA7C0C,JP 2,Holostars JP 2,13
+kaoru,#A4FB41,JP 3,Holostars JP 3,14
+shien,#A4FB41,JP 3,Holostars JP 3,14
+oga,#A4FB41,JP 3,Holostars JP 3,14
+fuma,#B0B5DE,UPROAR,UPROAR,15
+uyu,#B0B5DE,UPROAR,UPROAR,15
+gamma,#B0B5DE,UPROAR,UPROAR,15
+rio,#B0B5DE,UPROAR,UPROAR,15
+altare,#5DB7E6,EN,Holostars EN,16
+magni,#5DB7E6,EN,Holostars EN,16
+axel,#5DB7E6,EN,Holostars EN,16
+vesper,#5DB7E6,EN,Holostars EN,16
+bettel,#5DB7E6,EN,Holostars EN,16
+flayon,#5DB7E6,EN,Holostars EN,16
+hakka,#5DB7E6,EN,Holostars EN,16
+shinri,#5DB7E6,EN,Holostars EN,16
