@@ -57,7 +57,7 @@ st.caption('Comparing livestream count, total hours, average minutes per stream,
 st.caption('Average hours per week is calculated from the week of the debut date up to the week of the graduation or termination date. A special case for Magni Dezmond and Noir Vesper; their end date is July 7, 2023 which is the last date both have streamed.')
 gen = st.selectbox('Generation:', generations, format_func=generation_names)
 gen = generation_members[gen]
-names = df.loc[gen, 'full_name'].to_list()
+names = details.loc[gen, 'full_name'].to_list()
 # arrange values to 2x2 grid
 values = [[df.loc[gen, col_name].to_list() for col_name in ['count', 'total_hrs']],
           [df.loc[gen, col_name].to_list() for col_name in ['avg_mins', 'hrs_p_wk']]]

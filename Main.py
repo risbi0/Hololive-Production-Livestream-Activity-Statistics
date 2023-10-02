@@ -387,17 +387,17 @@ time_offsets = [
 ]
 
 col1, col2 = st.columns(2)
-select = col1.selectbox('Hololive Production Member:', df['ch_name'].tolist())
+select = col1.selectbox('Hololive Production Member:', details['ch_name'].tolist())
 time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
 
-name = df.index[df['ch_name'] == select][0]
+name = df.index[details['ch_name'] == select][0]
 main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
 topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 hrs_per_week = pd.read_csv(f'data/{name}/hrs_per_week.csv', index_col=[0])
 
-st.markdown(f"<h2>{df.full_name[df['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2>{details.full_name[details['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()

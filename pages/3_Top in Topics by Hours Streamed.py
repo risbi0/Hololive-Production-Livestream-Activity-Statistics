@@ -13,6 +13,7 @@ def ordinal_suffix(n):
         return { 1: 'st', 2: 'nd', 3: 'rd' }.get(n % 10, 'th')
 
 df = pd.read_csv('data/data.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
 generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
 
 st.markdown('''<h4>Top in Topics by Hours Streamed</h4>''', unsafe_allow_html=True)
@@ -39,7 +40,7 @@ for topic, chart_title in topics.items():
     fig = go.Figure()
     for name, value in topics_df.iterrows():
         gen_color = generation_colors_names.loc[name, 'color']
-        full_name = df.loc[name, 'full_name']
+        full_name = details.loc[name, 'full_name']
         fig.add_trace(
             go.Bar(
                 x=[int(value)],

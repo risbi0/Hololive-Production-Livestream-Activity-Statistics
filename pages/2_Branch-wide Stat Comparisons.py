@@ -13,7 +13,10 @@ def ordinal_suffix(n):
         return { 1: 'st', 2: 'nd', 3: 'rd' }.get(n % 10, 'th')
 
 def make_chart(col_name, chart_title):
-    sub_df = branch.sort_values(col_name)[['full_name', col_name]]
+    # sort by given stat
+    sub_df = branch.sort_values(col_name)
+    # add full names to df
+    sub_df['full_name'] = sub_df.index.to_series().apply(lambda i: details.loc[i, 'full_name'])
     values = sub_df[col_name].to_list()
     names = sub_df.index.to_list()
     colors_done = []
@@ -51,6 +54,7 @@ def make_chart(col_name, chart_title):
     st.plotly_chart(fig, use_container_width=True)
 
 df = pd.read_csv('data/data.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
 generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
 df.drop('hololive', inplace=True)
 df['count'] = df['count'].astype(int)
