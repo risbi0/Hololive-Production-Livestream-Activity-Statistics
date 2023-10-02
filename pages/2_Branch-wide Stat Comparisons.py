@@ -14,7 +14,7 @@ def ordinal_suffix(n):
 
 def make_chart(col_name, chart_title):
     # sort by given stat
-    sub_df = branch.sort_values(col_name)
+    sub_df = branch_df.sort_values(col_name)
     # add full names to df
     sub_df['full_name'] = sub_df.index.to_series().apply(lambda i: details.loc[i, 'full_name'])
     values = sub_df[col_name].to_list()
@@ -56,6 +56,9 @@ def make_chart(col_name, chart_title):
 df = pd.read_csv('data/data.csv', index_col=[0])
 details = pd.read_csv('data/details.csv', index_col=[0])
 generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
+hololive_ids = details.loc[details['branch'] == 'Hololive'].index.tolist()
+holostars_ids = details.loc[details['branch'] == 'Holostars'].index.tolist()
+
 df.drop('hololive', inplace=True)
 df['count'] = df['count'].astype(int)
 df['total_hrs'] = df['total_hrs'].astype(int)
@@ -71,12 +74,11 @@ col_name_and_title = {
 st.markdown('''<h4>Branch-wide Stat Comparisons</h4>''', unsafe_allow_html=True)
 st.caption('Comparing livestream count, total hours, average minutes per stream, and average hours per week by branch.')
 branch = st.selectbox('Branch:', ['Hololive', 'Holostars'])
-branch_cutoff = 66
 if branch == 'Hololive':
-    branch = df.iloc[:branch_cutoff]
+    branch_df = df.loc[df.index.isin(hololive_ids)]
     center_val = 0.25
 else:
-    branch = df.iloc[branch_cutoff:]
+    branch_df = df.loc[df.index.isin(holostars_ids)]
     center_val = 0.37
 
 for col_name, chart_title in col_name_and_title.items():

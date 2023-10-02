@@ -1,33 +1,9 @@
 import pandas as pd
 import json
 
-HOLOLIVE = [
-    'hololive',
-    'sora', 'roboco', 'miko', 'suisei', 'azki',
-    'mel', 'fubuki', 'matsuri', 'haachama', 'aki',
-    'aqua', 'shion', 'ayame', 'choco', 'subaru',
-    'mio', 'okayu', 'korone',
-    'pekora', 'rushia', 'flare', 'noel', 'marine',
-    'kanata', 'coco', 'watame', 'towa', 'luna',
-    'lamy', 'nene', 'botan', 'polka',
-    'laplus', 'lui', 'koyori', 'chloe', 'iroha',
-    'ao', 'kanade', 'ririka', 'raden', 'hajime'
-    'calli', 'kiara', 'ina', 'gura', 'ame',
-    'irys', 'fauna', 'sana', 'kronii', 'mumei', 'bae',
-    'shiori', 'bijou', 'nerissa', 'fuwamoco',
-    'risu', 'moona', 'iofi',
-    'ollie', 'anya', 'reine',
-    'zeta', 'kaela', 'kobo'
-]
-
-HOLOSTARS = [
-    'miyabi', 'kira', 'izuru', 'aruran', 'rikka',
-    'astel', 'temma', 'roberu',
-    'kaoru', 'shien', 'oga',
-    'fuma', 'uyu', 'gamma', 'rio',
-    'altare', 'magni', 'axel', 'vesper',
-    'bettel', 'flayon', 'hakka', 'shinri'
-]
+df = pd.read_csv('data/details.csv', index_col=[0])
+HOLOLIVE = df.loc[df['branch'] == 'Hololive'].index.tolist()
+HOLOSTARS = df.loc[df['branch'] == 'Holostars'].index.tolist()
 
 topic_ids = ['apex', 'membersonly', 'minecraft', 'Superchat_Reading', 'singing', 'talk']
 
