@@ -201,8 +201,6 @@ def main(name):
 
     # make DF to each member, to be later combined to main_df
     sub_df = pd.DataFrame()
-    sub_df.loc[name, 'full_name'] = details.loc[name, 'full_name']
-    sub_df.loc[name, 'ch_name'] = details.loc[name, 'ch_name']
     sub_df.loc[name, 'count'] = livestream_count
     sub_df.loc[name, 'total_hrs'] = total_hrs
     sub_df.loc[name, 'total_f'] = m_to_dhhmm(total_mins * 60, True)
@@ -249,7 +247,6 @@ def process_data():
     # combine individual stats to main csv file
     main_df = pd.DataFrame(
         columns=[
-            'full_name', 'ch_name',
             'count', 'total_hrs', 'total_f', 'avg_mins', 'avg_f', 'missing', 'missing_hr',
             'long_title', 'long_id', 'long_date', 'long_length',
             'hrs_p_wk', 'hour_data', 'weekday_data'
