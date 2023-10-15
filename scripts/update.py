@@ -7,7 +7,7 @@ load_dotenv()
 HOLODEX_API_KEY = os.getenv('HOLODEX_API_KEY')
 
 df = pd.read_csv('data/details.csv', index_col=[0])
-channel_ids = df.loc[df['active'] != 0, 'ch_id'].tolist()
+channel_ids = df.loc[df['active'] != 0, 'ch_id'].to_dict()
 
 excluded_topics = ['original_song', 'music_cover', 'shorts', 'animation']
 
