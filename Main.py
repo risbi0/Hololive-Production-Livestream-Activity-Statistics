@@ -330,6 +330,7 @@ def display_hrs_per_week():
     bar_chart.update_yaxes(title_text='Hours')
     bar_chart.update_yaxes(fixedrange=True)
     st.plotly_chart(bar_chart, use_container_width=True)
+    st.caption('A week is from Sunday to Saturday at UTC+9.')
 
 def to_timezone(mins):
     timezone_abbr = [
