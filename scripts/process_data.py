@@ -227,6 +227,9 @@ def main(name):
 
 data = pd.read_csv('data/data.csv', index_col=[0])
 details = pd.read_csv('data/details.csv', index_col=[0])
+channel_names = details.loc[details['active'] != 0].index.to_list()
+channel_names.remove('hololive')
+
 def load_json():
     global livestream_details
 
@@ -238,11 +241,9 @@ def process_data():
     start = perf_counter()
     load_json()
 
-    for holomem in details.index:
-        # skip inactive talents
-        if holomem not in ['rushia', 'coco', 'sana', 'kira', 'kaoru', 'vesper', 'magni']:
-            print(f'Processing: {holomem}')
-            main(holomem)
+    for name in channel_names:
+        print(f'Processing: {name}')
+        main(name)
 
     # combine individual stats to main csv file
     main_df = pd.DataFrame(
@@ -252,8 +253,8 @@ def process_data():
             'hrs_p_wk', 'hour_data', 'weekday_data'
         ]
     )
-    for holomem in details.index:
-        sub_df = pd.read_csv(f'data/{holomem}/data.csv', index_col=[0])
+    for name in details.index:
+        sub_df = pd.read_csv(f'data/{name}/data.csv', index_col=[0])
         main_df = pd.concat([main_df, sub_df])
 
     main_df.to_csv('data/data.csv')
