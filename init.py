@@ -24,6 +24,9 @@ def init_markdown():
     st.markdown(
         '''
         <style>
+            div[data-testid="stDecoration"], iframe, footer {
+                display: none !important;
+            }
             .main .block-container {
                 padding-top: 40px;
             }
