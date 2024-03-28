@@ -24,11 +24,6 @@ def init_markdown():
     st.markdown(
         '''
         <style>
-            ul[aria-activedescendant] ul[role="option"]:nth-child(n+3):nth-child(-n+7),
-            ul[aria-activedescendant] div:nth-child(n+1):nth-child(-n+5),
-            div[data-testid="stDecoration"], iframe, footer {
-                display: none !important;
-            }
             .main .block-container {
                 padding-top: 40px;
             }
