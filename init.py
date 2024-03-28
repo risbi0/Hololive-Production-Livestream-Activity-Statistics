@@ -9,9 +9,11 @@ def init_page_config():
             'About': '''
                 ##### Hololive Production Livestream Activity Statistics
 
+                Lifetime statistics of HoloPro talents' YouTube channels.
+
                 Based on YouTube livestreams up to **March 14, 2024**, queried through Holodex API.
 
-                Main Hololive channel is updated less frequently.
+                The site is updated twice a month. Main Hololive channel is updated less frequently.
 
                 Data only includes videos where the API has a record of its duration, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams.
 
