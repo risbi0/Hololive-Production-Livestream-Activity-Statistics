@@ -11,7 +11,7 @@ def init_page_config():
 
                 Lifetime statistics of HoloPro talents' YouTube channels.
 
-                Based on YouTube livestreams up to **June 10, 2024**, queried through Holodex API.
+                Based on YouTube livestreams up to **June 30, 2024**, queried through Holodex API.
 
                 The site is updated twice a month. Main Hololive channel is updated less frequently.
 
