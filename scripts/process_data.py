@@ -244,6 +244,9 @@ def process_data():
     for name in channel_names:
         print(f'Processing: {name}')
         main(name)
+        # uncomment when updating holo ch, and comment the line above
+        """ main('hololive')
+        break """
 
     # combine individual stats to main csv file
     main_df = pd.DataFrame(
@@ -260,3 +263,6 @@ def process_data():
     main_df.to_csv('data/data.csv')
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
+
+# uncomment when updating holo ch
+#process_data()

@@ -19,4 +19,8 @@ streamlit run Main.py
 
 Update is done manually by running `scripts/update.py`, preferrably every 2 weeks, max being 3 weeks. This is because the Holodex API only queries up to the latest 50 videos of a channel, including non-livestreams.
 
-The script doesn't include the Hololive channel as it is incompatible to apply the 360 second duration filter (which mostly works on the talents) since it publishes videos that are longer than that duration and is not a livestream. So I still use [HPLAS-Initialize](https://github.com/risbi0/HPLAS-Initialize) for specifically updating the channel, and I get their livestreams from the Live tab in their YouTube page since it's easier to do that way. The frequency of updating the Hololive channel doesn't follow the 2-3 week frequency since the channel seldom livestreams, so it can be updated less frequently.
+The script doesn't include the Hololive channel as it is incompatible to apply the 360 second duration filter (which mostly works on the talents) since it publishes videos that are longer than that duration and aren't livestreams.
+
+To update the channel, go to `scripts/update_holo_ch.py` and read the documentation at the top of the file before running the script.
+
+The frequency of updating the Hololive channel doesn't follow the 2-3 week frequency since the channel seldom livestreams, so it is updated less frequently.
