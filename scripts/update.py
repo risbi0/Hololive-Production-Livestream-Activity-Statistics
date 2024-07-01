@@ -20,7 +20,7 @@ def update():
         livestream_details = json.load(file)
 
     for name, channel_id in channel_ids.items():
-        print(f'Updating: {name.capitalize()}')
+        print(f'Updating: {name}')
         # query API
         response = requests.get(f'https://holodex.net/api/v2/channels/{channel_id}/videos?limit=50', headers={'X-APIKEY': HOLODEX_API_KEY})
         data = json.loads(response.text)
