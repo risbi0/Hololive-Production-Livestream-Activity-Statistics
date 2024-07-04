@@ -125,10 +125,10 @@ def display_heatmap():
     )
     heatmap.update_yaxes(fixedrange=True)
     heatmap.update_layout(
+        title=f'Livestream Timeseries Heatmap {time_offset}',
         height=445,
         margin=dict(l=0, r=0, t=30, b=0)
     )
-    st.markdown('<p id="heatmap-title">Livestream Timeseries Heatmap</p>', unsafe_allow_html=True)
     st.plotly_chart(heatmap, use_container_width=True)
     st.caption('''
         Cumulative occurrence of streams condensed to the days of the week. Data points down to the minute.
