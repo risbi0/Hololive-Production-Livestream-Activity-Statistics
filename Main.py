@@ -1,5 +1,6 @@
 from init import init_page_config, init_markdown
 from plotly.subplots import make_subplots
+from streamlit import session_state as ss
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
@@ -387,18 +388,151 @@ time_offsets = [
     30, 60, 90, 120, 180, 225, 240, 300
 ]
 
-col1, col2 = st.columns(2)
-select = col1.selectbox('Hololive Production Member:', details['ch_name'].tolist())
-time_offset = col2.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
+# holomem selection (WARNING: Very non-DRY code. Still I chose this over having 1 long column of names.)
+# radio buttons
+with st.container(height=215):
+    r1c1, r1c2, r1c3, r1c4, r1c5 = st.columns(5)
+    l_jp_0 = r1c1.radio('0th Gen (and official)', ['Hololive', 'Tokino Sora', 'Roboco', 'Sakura Miko', 'Hoshimachi Suisei', 'AZKi'], index=0)
+    l_jp_1 = r1c2.radio('1st Gen', ['Yozora Mel', 'Shirakami Fubuki', 'Natsuiro Matsuri', 'Akai Haato', 'Aki Rosenthal'], index=None)
+    l_jp_2 = r1c3.radio('2nd Gen', ['Minato Aqua', 'Murasaki Shion', 'Nakiri Ayame', 'Yuzuki Choco', 'Oozora Subaru'], index=None)
+    l_jp_g = r1c4.radio('GAMERS', ['Ookami Mio', 'Nekomata Okayu', 'Inugami Korone'], index=None)
+    l_jp_3 = r1c5.radio('hololive Fantasy', ['Usada Pekora', 'Uruha Rushia', 'Shiranui Flare', 'Shirogane Noel', 'Houshou Marine'], index=None)
+    r2c1, r2c2, r2c3, r2c4, _ = st.columns(5)
+    l_jp_4 = r2c1.radio('holoForce', ['Amane Kanata', 'Kiryu Coco', 'Tsunomaki Watame', 'Tokoyami Towa', 'Himemori Luna'], index=None)
+    l_jp_5 = r2c2.radio('NePoLaBo', ['Yukihana Lamy', 'Momosuzu Nene', 'Shishiro Botan', 'Omaru Polka'], index=None)
+    l_jp_6 = r2c3.radio('holoX', ['La+ Darknesss', 'Takane Lui', 'Hakui Koyori', 'Sakamata Chloe', 'Kazama Iroha'], index=None)
+    l_jp_d = r2c4.radio('ReGLOSS', ['Hiodoshi Ao', 'Otonose Kanade', 'Ichijou Ririka', 'Juufuutei Raden', 'Todoroki Hajime'], index=None)
+    r3c1, r3c2, r3c3, r3c4, _ = st.columns(5)
+    l_en_1 = r3c1.radio('Myth', ['Mori Calliope', 'Takanashi Kiara', 'Ninomae Ina\'nis', 'Gawr Gura', 'Watson Amelia'], index=None)
+    l_en_2 = r3c2.radio('CouncilRys', ['IRyS', 'Ceres Fauna', 'Tsukumo Sana', 'Ouro Kronii', 'Nanashi Mumei', 'Hakos Baelz'], index=None)
+    l_en_3 = r3c3.radio('Advent', ['Shiori Novella', 'Koseki Bijou', 'Nerissa Ravencroft', 'Fuwamoco Abyssguard'], index=None)
+    l_en_4 = r3c4.radio('Justice', ['Elizabeth Rose Bloodflame', 'Gigi Murin', 'Cecilia Immergreen', 'Raora Panthera'], index=None)
+    r4c1, r4c2, r4c3, _, _ = st.columns(5)
+    l_id_1 = r4c1.radio('AREA 15', ['Ayunda Risu', 'Moona Hoshinova', 'Airani Iofifteen'], index=None)
+    l_id_2 = r4c2.radio('holoro', ['Kureiji Ollie', 'Anya Melfissa', 'Pavolia Reine'], index=None)
+    l_id_3 = r4c3.radio('holo3ro', ['Vestia Zeta', 'Kaela Kovalskia', 'Kobo Kanaeru'], index=None)
+    r5c1, r5c2, r5c3, r5c4, _ = st.columns(5)
+    s_jp_1 = r5c1.radio('1st Gen', ['Hanasaki Miyabi', 'Kagami Kira', 'Kanade Izuru', 'Arurandeisu', 'Rikka'], index=None)
+    s_jp_2 = r5c2.radio('SunTempo', ['Astel Leda', 'Kishido Temma', 'Yukoku Roberu'], index=None)
+    s_jp_3 = r5c3.radio('TriNero', ['Tsukishita Kaoru', 'Kageyama Shien', 'Aragami Oga'], index=None)
+    s_jp_u = r5c4.radio('UPROAR!!', ['Yatogami Fuma', 'Utsugi Uyu', 'Hizaki Gamma', 'Minase Rio'], index=None)
+    r6c1, r6c2, r6c3, _, _ = st.columns(5)
+    s_en_h = r6c1.radio('TEMPUS HQ', ['Regis Altare', 'Magni Dezmond', 'Axel Syrios', 'Noir Vesper'], index=None)
+    s_en_v = r6c2.radio('TEMPUS Vanguard', ['Josuiji Shinri', 'Machina X Flayon', 'Banzoin Hakka', 'Gavis Bettel'], index=None)
+    s_en_a = r6c3.radio('ARMIS', ['Jurard T Rexford', 'Goldbullet', 'Octavio', 'Crimson Ruze'], index=None)
 
-name = df.index[details['ch_name'] == select][0]
+# initialize session states
+if 'current' not in ss:
+    ss.current = 'Hololive'
+
+if all(e not in ss for e in ['l_jp_0', 'l_jp_1', 'l_jp_2', 'l_jp_g', 'l_jp_3', 'l_jp_4', 'l_jp_5', 'l_jp_6', 'l_jp_d', 'l_en_1', 'l_en_2', 'l_en_3', 'l_en_4', 'l_id_1', 'l_id_2', 'l_id_3', 's_jp_1', 's_jp_2', 's_jp_3', 's_jp_u', 's_en_h', 's_en_v', 's_en_a']):
+    ss.l_jp_0 = None
+    ss.l_jp_1 = None
+    ss.l_jp_2 = None
+    ss.l_jp_g = None
+    ss.l_jp_3 = None
+    ss.l_jp_4 = None
+    ss.l_jp_5 = None
+    ss.l_jp_6 = None
+    ss.l_jp_d = None
+    ss.l_en_1 = None
+    ss.l_en_2 = None
+    ss.l_en_3 = None
+    ss.l_en_4 = None
+    ss.l_id_1 = None
+    ss.l_id_2 = None
+    ss.l_id_3 = None
+    ss.s_jp_1 = None
+    ss.s_jp_2 = None
+    ss.s_jp_3 = None
+    ss.s_jp_u = None
+    ss.s_en_h = None
+    ss.s_en_v = None
+    ss.s_en_a = None
+
+# session state management
+if l_jp_0 != ss.l_jp_0:
+    ss.current = l_jp_0
+    ss.l_jp_0 = l_jp_0
+if l_jp_1 != ss.l_jp_1:
+    ss.current = l_jp_1
+    ss.l_jp_1 = l_jp_1
+if l_jp_2 != ss.l_jp_2:
+    ss.current = l_jp_2
+    ss.l_jp_2 = l_jp_2
+if l_jp_g != ss.l_jp_g:
+    ss.current = l_jp_g
+    ss.l_jp_g = l_jp_g
+if l_jp_3 != ss.l_jp_3:
+    ss.current = l_jp_3
+    ss.l_jp_3 = l_jp_3
+if l_jp_4 != ss.l_jp_4:
+    ss.current = l_jp_4
+    ss.l_jp_4 = l_jp_4
+if l_jp_5 != ss.l_jp_5:
+    ss.current = l_jp_5
+    ss.l_jp_5 = l_jp_5
+if l_jp_6 != ss.l_jp_6:
+    ss.current = l_jp_6
+    ss.l_jp_6 = l_jp_6
+if l_jp_d != ss.l_jp_d:
+    ss.current = l_jp_d
+    ss.l_jp_d = l_jp_d
+if l_en_1 != ss.l_en_1:
+    ss.current = l_en_1
+    ss.l_en_1 = l_en_1
+if l_en_2 != ss.l_en_2:
+    ss.current = l_en_2
+    ss.l_en_2 = l_en_2
+if l_en_3 != ss.l_en_3:
+    ss.current = l_en_3
+    ss.l_en_3 = l_en_3
+if l_en_4 != ss.l_en_4:
+    ss.current = l_en_4
+    ss.l_en_4 = l_en_4
+if l_id_1 != ss.l_id_1:
+    ss.current = l_id_1
+    ss.l_id_1 = l_id_1
+if l_id_2 != ss.l_id_2:
+    ss.current = l_id_2
+    ss.l_id_2 = l_id_2
+if l_id_3 != ss.l_id_3:
+    ss.current = l_id_3
+    ss.l_id_3 = l_id_3
+if s_jp_1 != ss.s_jp_1:
+    ss.current = s_jp_1
+    ss.s_jp_1 = s_jp_1
+if s_jp_2 != ss.s_jp_2:
+    ss.current = s_jp_2
+    ss.s_jp_2 = s_jp_2
+if s_jp_3 != ss.s_jp_3:
+    ss.current = s_jp_3
+    ss.s_jp_3 = s_jp_3
+if s_jp_u != ss.s_jp_u:
+    ss.current = s_jp_u
+    ss.s_jp_u = s_jp_u
+if s_en_h != ss.s_en_h:
+    ss.current = s_en_h
+    ss.s_en_h = s_en_h
+if s_en_v != ss.s_en_v:
+    ss.current = s_en_v
+    ss.s_en_v = s_en_v
+if s_en_a != ss.s_en_a:
+    ss.current = s_en_a
+    ss.s_en_a = s_en_a
+
+holo_select_caption, tz_col = st.columns([4, 1])
+holo_select_caption.caption('Excuse the scuffness. Streamlit\'s API is quite limited.')
+time_offset = tz_col.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
+
+name = df.index[details['full_name'] == ss.current][0]
 main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
 topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
 hrs_per_week = pd.read_csv(f'data/{name}/hrs_per_week.csv', index_col=[0])
 
-st.markdown(f"<h2>{details.full_name[details['ch_name'] == select][0]}</h2>", unsafe_allow_html=True)
+st.markdown(f"<h2>{details[details['full_name'] == ss.current]['ch_name'].values[0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
 display_heatmap()
 display_hour_and_day_charts()

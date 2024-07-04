@@ -30,7 +30,7 @@ def init_markdown():
                 display: none !important;
             }
             .main .block-container {
-                padding-top: 40px;
+                margin-top: 40px;
             }
         </style>
         ''',
