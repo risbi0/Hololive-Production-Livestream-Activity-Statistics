@@ -131,7 +131,7 @@ def display_heatmap():
     )
     st.plotly_chart(heatmap, use_container_width=True)
     st.caption('''
-        Cumulative occurrence of streams condensed to the days of the week. Data points down to the minute.
+        Cumulative frequency of streams in each of the week. Data points down to the minute.
         Lightest and darkest tint represent the least and most frequent times of the day respectively.
         Opposite color of the darkest tint represent 0 streaming times.
     ''')
@@ -269,7 +269,7 @@ def display_archive_and_topics_charts():
     ah_col, topic_col = st.columns([2, 3])
     ah_col.plotly_chart(archive_health, use_container_width=True)
     topic_col.plotly_chart(topics_bar, use_container_width=True)
-    topic_col.caption('Sorted by duration.')
+    topic_col.caption('Topics provided by Holodex. Sorted by duration.')
 
 def display_longest_stream():
     st.markdown(f'''
@@ -330,7 +330,7 @@ def display_hrs_per_week():
     bar_chart.update_yaxes(title_text='Hours')
     bar_chart.update_yaxes(fixedrange=True)
     st.plotly_chart(bar_chart, use_container_width=True)
-    st.caption('A week is from Sunday to Saturday at UTC+9.')
+    st.caption('A week is from Sunday to Saturday at UTC+9. (Tip: You can crop to a specific time range by click and dragging horizontally.)')
 
 def to_timezone(mins):
     timezone_abbr = [
