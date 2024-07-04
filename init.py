@@ -9,15 +9,15 @@ def init_page_config():
             'About': '''
                 ##### Hololive Production Livestream Activity Statistics
 
+                *(better user experience in desktop)*
+
                 Lifetime statistics of HoloPro talents' YouTube channels.
 
-                Based on YouTube livestreams up to **June 30, 2024**, queried through Holodex API.
+                Based on YouTube livestreams up to **June 30, 2024**, queried using [Holodex API](https://docs.holodex.net/). This doesn't update live; I update this manually twice a month, but I wait a few weeks longer for new generations to have streams in each day.
 
-                The site is updated twice a month. Main Hololive channel is updated less frequently.
+                Data only includes videos where Holodex has a record of its duration, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams (it shows less than actual).
 
-                Data only includes videos where the API has a record of its duration, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams.
-
-                The data collected may also contain unnecessary data since the API doesn't have a way of fetching livestreams only. I had to put some condition to filter most non-livestreams, with it having more than 360 seconds. This is why the main Hololive channel is updated separately.
+                Data may also contain "noise" as neither Holodex nor YouTube's API has a way to distinguish between livestreams and premieres. I had to put some arbitrary condition to filter most non-livestreams, which is that the duration should be more than 360 seconds. This is why the main Hololive channel is updated separately.
             '''
         }
     )
