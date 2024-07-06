@@ -4,6 +4,12 @@ Made with [Plotly](https://plotly.com/) and deployed in [Streamlit](https://stre
 
 Data was initialized using separate scripts published in another repo, [HPLAS-Initialize](https://github.com/risbi0/HPLAS-Initialize).
 
+### Requirements
+
+- Python
+- Holodex API key (`HOLODEX_API_KEY`)
+- YouTube Data API key (`YT_DATA_API_KEY`)
+
 ### Setup
 
 Install libraries:
@@ -15,19 +21,48 @@ Run app in localhost:
 streamlit run Main.py
 ```
 
+### JSON Schema
+
+```
+{
+    "<name>": {
+        "missing": int,
+        "missing_length": int,
+        "topics": {
+            "<topic_name>": [int, int]
+        },
+        "details": [
+            {
+                "id": string,
+                "title": string,
+                "duration": int,
+                "date": string
+            }
+        ]
+    }
+}
+```
+
+- `name` - Name of the channel. The same name used as the index in the CSV files.
+    - `missing` - Amount of unarchived livestreams.
+    - `missing_length` - Total duration of unarchived livestreams in seconds.
+    - `topics` - The topic of the livestream provided by Holodex API.
+        - `topic_name` - Name of the topic. Represented by an array of two integers. The 1st integer and 2nd integer is the amount of livestreams with the same topic and the total duration (in seoncds) of said livestreams respectively.
+    - `details` - An array of JSON's for details of each livestream.
+        - `id` - YouTube ID of the livestream.
+        - `title` - Title of the livestream.
+        - `duration` - Duration of the livestream.
+        - `date` - The date and time the livestream started in ISO 8601 (UTC+0).
+
 ### Update Process
 
 Update is done manually by running `scripts/update.py`, preferrably every 2 weeks, max being 3 weeks. This is because the Holodex API only queries up to the latest 50 videos of a channel, including non-livestreams.
 
-The script doesn't include the Hololive channel as it is incompatible to apply the 360 second duration filter (which mostly works on the talents) since it publishes videos that are longer than that duration and aren't livestreams.
-
-To update the channel, go to `scripts/update_holo_ch.py` and read the documentation at the top of the file before running the script.
-
-The frequency of updating the Hololive channel doesn't follow the 2-3 week frequency since the channel seldom livestreams, so it is updated less frequently.
+The script doesn't include the Hololive channel because it is incompatible to apply the 360 second duration filter (which mostly works on the members) since most of its videos are longer than that duration and aren't livestreams. When updating it, `scripts/update_holo_ch.py` is used (more documentation in the script). The channel is updated less frequently since it seldom livestreams.
 
 ### Adding New Members
 
-Think of a one-word name that will identify each member, which in this doc will be called `name`.
+Think of a one-word name that will identify each member which is represented by `name`.
 
 Add a row in `data/details.csv` most of the values are self-explanatory, but here are the explanations for those that are not:
 
