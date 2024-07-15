@@ -5,7 +5,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-import math, calendar
+import math, calendar, re
 
 init_page_config()
 init_markdown()
@@ -84,6 +84,7 @@ def display_individual_stats():
         )
 
 def display_heatmap():
+    utc = re.findall(r'\(([^)]+)\)', to_timezone(time_offset))[0]
     times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
     days_short = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', header=None)
@@ -126,7 +127,7 @@ def display_heatmap():
     )
     heatmap.update_yaxes(fixedrange=True)
     heatmap.update_layout(
-        title=f'Livestream Timeseries Heatmap {time_offset}',
+        title=f'Livestream Timeseries Heatmap ({utc}) - {ss.current}',
         height=445,
         margin=dict(l=0, r=0, t=30, b=0)
     )
@@ -524,7 +525,6 @@ if 'current' not in ss or ss.current == None:
 holo_select_caption, tz_col = st.columns([4, 1])
 holo_select_caption.caption('Excuse the scuffness. Streamlit\'s API is quite limited.')
 time_offset = tz_col.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
-
 name = df.index[details['full_name'] == ss.current][0]
 main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
