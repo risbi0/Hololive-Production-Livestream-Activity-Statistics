@@ -422,9 +422,6 @@ with st.container(height=215):
     s_en_a = r6c3.radio('ARMIS', ['Jurard T Rexford', 'Goldbullet', 'Octavio', 'Crimson Ruze'], index=None)
 
 # initialize session states
-if 'current' not in ss:
-    ss.current = 'Hololive'
-
 if all(e not in ss for e in ['l_jp_0', 'l_jp_1', 'l_jp_2', 'l_jp_g', 'l_jp_3', 'l_jp_4', 'l_jp_5', 'l_jp_6', 'l_jp_d', 'l_en_1', 'l_en_2', 'l_en_3', 'l_en_4', 'l_id_1', 'l_id_2', 'l_id_3', 's_jp_1', 's_jp_2', 's_jp_3', 's_jp_u', 's_en_h', 's_en_v', 's_en_a']):
     ss.l_jp_0 = None
     ss.l_jp_1 = None
@@ -520,6 +517,9 @@ if s_en_v != ss.s_en_v:
 if s_en_a != ss.s_en_a:
     ss.current = s_en_a
     ss.s_en_a = s_en_a
+
+if 'current' not in ss or ss.current == None:
+    ss.current = 'Hololive'
 
 holo_select_caption, tz_col = st.columns([4, 1])
 holo_select_caption.caption('Excuse the scuffness. Streamlit\'s API is quite limited.')
