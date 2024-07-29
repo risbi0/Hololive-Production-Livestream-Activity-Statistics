@@ -1,5 +1,6 @@
 from time import perf_counter
 from dotenv import load_dotenv
+from datetime import datetime
 import pandas as pd
 import json, requests, os
 
@@ -11,6 +12,9 @@ channel_ids = df.loc[df['active'] != 0, 'ch_id'].to_dict()
 channel_ids.pop('hololive')
 
 excluded_topics = ['original_song', 'music_cover', 'shorts', 'animation']
+
+def parse_date(date_string):
+    return datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S.%fZ')
 
 def update():
     print('Running update.py')
@@ -56,6 +60,8 @@ def update():
                         livestream_details[name]['missing'] += 1
                         livestream_details[name]['missing_length'] += data[i]['duration']
 
+        # sort date from earliest to latest
+        livestream_details[name]['details'] = sorted(livestream_details[name]['details'], key=lambda x: parse_date(x['date']))
         # sort topics alphabetically
         livestream_details[name]['topics'] = dict(sorted(livestream_details[name]['topics'].items(), key=lambda l: l[0].lower()))
 
