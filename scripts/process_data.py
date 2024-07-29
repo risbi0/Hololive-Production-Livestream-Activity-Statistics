@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from dotenv import load_dotenv
 import pandas as pd
 import numpy as np
-import os, glob, json, pytz
+import os, glob, json
 
 load_dotenv()
 YT_DATA_API_KEY = os.getenv('YT_DATA_API_KEY')
@@ -66,7 +66,7 @@ def hrs_per_week(name):
         data_dict[date] += vid_dur
 
     # add current year-week if there's no record of it
-    date_today = datetime.now(pytz.timezone('Asia/Tokyo'))
+    date_today = datetime.now(timezone('Asia/Tokyo'))
     year = date_today.year
     week_no = int(date_today.strftime('%U'))
     curr_year_week = f'{year}-{week_no}'
