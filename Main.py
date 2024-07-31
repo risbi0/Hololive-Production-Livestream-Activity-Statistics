@@ -525,7 +525,7 @@ if 'current' not in ss or ss.current == None:
 holo_select_caption, tz_col = st.columns([4, 1])
 holo_select_caption.caption('Excuse the scuffness. Streamlit\'s API is quite limited.')
 time_offset = tz_col.selectbox('Heatmap Timezone:', time_offsets, index=29, format_func=to_timezone) # default to JP timzone
-name = df.index[details['full_name'] == ss.current][0]
+name = details.index[details['full_name'] == ss.current][0]
 main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
