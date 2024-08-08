@@ -133,7 +133,7 @@ def display_heatmap():
     )
     st.plotly_chart(heatmap, use_container_width=True)
     st.caption('''
-        Cumulative frequency of streams in each of the week. Data points down to the minute.
+        Cumulative frequency of streams in each day of the week. Data points down to the minute.
         Lightest and darkest tint represent the least and most frequent times of the day respectively.
         Opposite color of the darkest tint represent 0 streaming times.
     ''')
