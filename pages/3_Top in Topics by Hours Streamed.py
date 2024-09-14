@@ -2,7 +2,6 @@ from init import init_page_config, init_markdown
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
-import os
 
 init_page_config()
 init_markdown()
@@ -13,9 +12,9 @@ def ordinal_suffix(n):
     else:
         return { 1: 'st', 2: 'nd', 3: 'rd' }.get(n % 10, 'th')
 
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/data.csv'), index_col=[0])
-details = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
-generation_colors_names = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/generation_colors_names.csv'), index_col=[0])
+df = pd.read_csv('data/data.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
+generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
 
 st.markdown('''<h4>Top in Topics by Hours Streamed</h4>''', unsafe_allow_html=True)
 st.caption('Comparing popular topics frequently streamed by the talents by branch. Top 20 for Hololive. Top 10 for Holostars.')
@@ -34,7 +33,7 @@ cols = [st.columns([1, 1]) for _ in range(3)]
 index = 0
 
 for topic, chart_title in topics.items():
-    topics_df = pd.read_csv(os.path.join(os.path.dirname(__file__), f'../data/{branch.lower()}_{topic}.csv'), index_col=[0], header=None)
+    topics_df = pd.read_csv(f'data/{branch.lower()}_{topic}.csv', index_col=[0], header=None)
     colors_done = []
     counter = len(topics_df)
 

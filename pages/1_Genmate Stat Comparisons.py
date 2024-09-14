@@ -3,13 +3,12 @@ from plotly.subplots import make_subplots
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
-import os
 
 init_page_config()
 init_markdown()
 
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/data.csv'), index_col=[0])
-details = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
+df = pd.read_csv('data/data.csv', index_col=[0])
+details = pd.read_csv('data/details.csv', index_col=[0])
 df['count'] = df['count'].astype(int)
 df['total_hrs'] = df['total_hrs'].astype(int)
 df['avg_mins'] = df['avg_mins'].astype(int)
