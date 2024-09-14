@@ -3,6 +3,7 @@ from pytz import timezone
 from time import perf_counter
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import os, glob, json
@@ -10,6 +11,9 @@ import os, glob, json
 load_dotenv()
 YT_DATA_API_KEY = os.getenv('YT_DATA_API_KEY')
 youtube = build('youtube', 'v3', developerKey=YT_DATA_API_KEY)
+
+current_script_dir = Path(__file__).resolve().parent
+parent_dir = current_script_dir.parent
 
 def timings(time):
     weekday = time.weekday() + 1
@@ -38,7 +42,7 @@ def to_HHMM(i):
 
 def to_csv(df, folder_name, filename, has_header=True, has_index=True):
     df.to_csv(
-        f'data/{folder_name}/{filename}.csv',
+        os.path.join(parent_dir, f'data/{folder_name}/{filename}.csv'),
         header=has_header,
         index=has_index
     )
@@ -170,13 +174,13 @@ def main(name):
                 heatmap_data[end_day][i] += 1
 
     # delete old files
-    old_files = glob.glob(f'data/{name}/*')
+    old_files = glob.glob(os.path.join(os.path.dirname(__file__), f'..data/{name}/*'))
     for file in old_files:
         os.remove(file)
 
     # create folder if folder doesn't exist
-    if not os.path.isdir(f'data/{name}'):
-        os.mkdir(f'data/{name}')
+    if not os.path.isdir(os.path.join(parent_dir, f'data/{name}')):
+        os.mkdir(os.path.join(parent_dir, f'data/{name}'))
 
     # save heatmap
     to_csv(pd.DataFrame(heatmap_data), name, 'heatmap', has_header=False, has_index=False)
@@ -225,15 +229,15 @@ def main(name):
     to_csv(sub_df, name, 'data')
     hrs_per_week(name)
 
-data = pd.read_csv('data/data.csv', index_col=[0])
-details = pd.read_csv('data/details.csv', index_col=[0])
+data = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/data.csv'), index_col=[0])
+details = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
 channel_names = details.loc[details['active'] != 0].index.to_list()
 channel_names.remove('hololive')
 
 def load_json():
     global livestream_details
 
-    with open('json/livestream_details.json', encoding='utf8') as file:
+    with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), encoding='utf8') as file:
         livestream_details = json.load(file)
 
 def process_data():
@@ -257,10 +261,10 @@ def process_data():
         ]
     )
     for name in details.index:
-        sub_df = pd.read_csv(f'data/{name}/data.csv', index_col=[0])
+        sub_df = pd.read_csv(os.path.join(os.path.dirname(__file__), f'../data/{name}/data.csv'), index_col=[0])
         main_df = pd.concat([main_df, sub_df])
 
-    main_df.to_csv('data/data.csv')
+    main_df.to_csv(os.path.join(parent_dir, 'data/data.csv'))
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')
 

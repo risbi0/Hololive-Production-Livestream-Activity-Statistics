@@ -1,7 +1,11 @@
+from pathlib import Path
 import pandas as pd
-import json
+import json, os
 
-df = pd.read_csv('data/details.csv', index_col=[0])
+current_script_dir = Path(__file__).resolve().parent
+parent_dir = current_script_dir.parent
+
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
 HOLOLIVE = df.loc[df['branch'] == 'Hololive'].index.tolist()
 HOLOSTARS = df.loc[df['branch'] == 'Holostars'].index.tolist()
 
@@ -16,7 +20,7 @@ branches = {
 def topics():
     print('Running topics.py')
 
-    with open('json/livestream_details.json', encoding='utf8') as file:
+    with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), encoding='utf8') as file:
         livestream_details = json.load(file)
 
     for branch, places in branches.items():
@@ -33,6 +37,6 @@ def topics():
                     continue
 
             top = pd.DataFrame.from_dict(dct, orient='index').sort_values(0, ascending=False).head(places)
-            top.sort_values(0).to_csv(f'data/{branch}_{topic}.csv', header=None)
+            top.sort_values(0).to_csv(os.path.join(parent_dir, f'data/{branch}_{topic}.csv'), header=None)
 
     print('Done.')

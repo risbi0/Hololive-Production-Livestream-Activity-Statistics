@@ -27,7 +27,7 @@ ids = []
 
 print('Updating official Hololive channel...')
 
-with open('json/livestream_details.json', encoding='utf8') as file:
+with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), encoding='utf8') as file:
     livestream_details = json.load(file)
 
 for id in ids:
@@ -57,7 +57,7 @@ for id in ids:
 # sort topics alphabetically
 livestream_details['hololive']['topics'] = dict(sorted(livestream_details['hololive']['topics'].items(), key=lambda l: l[0].lower()))
 
-with open('json/livestream_details.json', 'w', encoding='utf-8') as file:
+with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), 'w', encoding='utf-8') as file:
     json.dump(livestream_details, file, ensure_ascii=False)
 
 print('Done.')

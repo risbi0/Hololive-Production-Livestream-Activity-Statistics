@@ -7,7 +7,7 @@ import json, requests, os
 load_dotenv()
 HOLODEX_API_KEY = os.getenv('HOLODEX_API_KEY')
 
-df = pd.read_csv('data/details.csv', index_col=[0])
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
 channel_ids = df.loc[df['active'] != 0, 'ch_id'].to_dict()
 channel_ids.pop('hololive')
 
@@ -20,7 +20,7 @@ def update():
     print('Running update.py')
     start = perf_counter()
 
-    with open('json/livestream_details.json', encoding='utf8') as file:
+    with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), encoding='utf8') as file:
         livestream_details = json.load(file)
 
     for name, channel_id in channel_ids.items():
@@ -66,7 +66,7 @@ def update():
         # sort topics alphabetically
         livestream_details[name]['topics'] = dict(sorted(livestream_details[name]['topics'].items(), key=lambda l: l[0].lower()))
 
-    with open('json/livestream_details.json', 'w', encoding='utf-8') as file:
+    with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.json'), 'w', encoding='utf-8') as file:
         json.dump(livestream_details, file, ensure_ascii=False)
 
     print(f'Done. Time took: {round(perf_counter() - start, 2)} seconds.')

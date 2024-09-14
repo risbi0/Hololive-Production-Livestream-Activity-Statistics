@@ -2,6 +2,7 @@ from init import init_page_config, init_markdown
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
+import os
 
 init_page_config()
 init_markdown()
@@ -53,9 +54,9 @@ def make_chart(col_name, chart_title):
     fig.update_yaxes(fixedrange=True)
     st.plotly_chart(fig, use_container_width=True)
 
-df = pd.read_csv('data/data.csv', index_col=[0])
-details = pd.read_csv('data/details.csv', index_col=[0])
-generation_colors_names = pd.read_csv('data/generation_colors_names.csv', index_col=[0])
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/data.csv'), index_col=[0])
+details = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/details.csv'), index_col=[0])
+generation_colors_names = pd.read_csv(os.path.join(os.path.dirname(__file__), '../data/generation_colors_names.csv'), index_col=[0])
 hololive_ids = details.loc[details['branch'] == 'Hololive'].index.tolist()
 holostars_ids = details.loc[details['branch'] == 'Holostars'].index.tolist()
 

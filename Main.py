@@ -5,7 +5,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-import math, calendar, re
+import math, calendar, re, os
 
 init_page_config()
 init_markdown()
@@ -87,7 +87,7 @@ def display_heatmap():
     utc = re.findall(r'\(([^)]+)\)', to_timezone(time_offset))[0]
     times = [f'{str(i // 60).zfill(2)}:{str(i % 60).zfill(2)}' for i in range(0, 1440)]
     days_short = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
-    heatmap_df = pd.read_csv(f'data/{name}/heatmap.csv', header=None)
+    heatmap_df = pd.read_csv(os.path.join(os.path.dirname(__file__), f'data/{name}/heatmap.csv'), header=None)
     # shift data according to timezone difference
     heatmap_df = pd.DataFrame(np.roll(heatmap_df.values.flatten(), time_offset).reshape(7, -1))
     heatmap = make_subplots(rows=7, cols=1, vertical_spacing=0)
@@ -378,8 +378,8 @@ def to_timezone(mins):
     sign = '+' if mins >= -540 else '-'
     return f'(UTC{sign}{str(abs(9 + mins // 60)).zfill(2)}:{str(mins % 60).zfill(2)}) {timezone_abbr[time_offsets.index(mins)]}'
 
-df = pd.read_csv('data/data.csv', index_col=[0])
-details = pd.read_csv('data/details.csv', index_col=[0])
+df = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data/data.csv'), index_col=[0])
+details = pd.read_csv(os.path.join(os.path.dirname(__file__), 'data/details.csv'), index_col=[0])
 days = list(calendar.day_name)
 days = days[-1:] + days[:-1] # shift Sunday to 1st position, being the 1st day of the week
 time_offsets = [
@@ -529,8 +529,8 @@ name = details.index[details['full_name'] == ss.current][0]
 main_color = f"#{details.loc[name, 'most']}"
 sub_color = f"#{details.loc[name, 'least']}"
 opp_color = f"#{details.loc[name, 'zero']}"
-topics = pd.read_csv(f'data/{name}/topics.csv', header=None, index_col=[0])
-hrs_per_week = pd.read_csv(f'data/{name}/hrs_per_week.csv', index_col=[0])
+topics = pd.read_csv(os.path.join(os.path.dirname(__file__), f'data/{name}/topics.csv'), header=None, index_col=[0])
+hrs_per_week = pd.read_csv(os.path.join(os.path.dirname(__file__), f'data/{name}/hrs_per_week.csv'), index_col=[0])
 
 st.markdown(f"<h2>{details[details['full_name'] == ss.current]['ch_name'].values[0]}</h2>", unsafe_allow_html=True)
 display_individual_stats()
