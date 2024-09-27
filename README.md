@@ -12,12 +12,19 @@ Data was initialized using separate scripts published in another repo, [HPLAS-In
 
 ### Setup
 
-Install libraries:
+Create virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate
 ```
+
+Install libraries:
+```bash
 pip install -r requirements.txt
 ```
-Run app in localhost:
-```
+
+Run app locally:
+```bash
 streamlit run Main.py
 ```
 
