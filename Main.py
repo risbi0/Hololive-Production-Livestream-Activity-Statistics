@@ -398,11 +398,12 @@ with st.container(height=215):
     l_jp_2 = r1c3.radio('2nd Gen', ['Minato Aqua', 'Murasaki Shion', 'Nakiri Ayame', 'Yuzuki Choco', 'Oozora Subaru'], index=None)
     l_jp_g = r1c4.radio('GAMERS', ['Ookami Mio', 'Nekomata Okayu', 'Inugami Korone'], index=None)
     l_jp_3 = r1c5.radio('hololive Fantasy', ['Usada Pekora', 'Uruha Rushia', 'Shiranui Flare', 'Shirogane Noel', 'Houshou Marine'], index=None)
-    r2c1, r2c2, r2c3, r2c4, _ = st.columns(5)
+    r2c1, r2c2, r2c3, r2c4, r2c5 = st.columns(5)
     l_jp_4 = r2c1.radio('holoForce', ['Amane Kanata', 'Kiryu Coco', 'Tsunomaki Watame', 'Tokoyami Towa', 'Himemori Luna'], index=None)
     l_jp_5 = r2c2.radio('NePoLaBo', ['Yukihana Lamy', 'Momosuzu Nene', 'Shishiro Botan', 'Omaru Polka'], index=None)
     l_jp_6 = r2c3.radio('holoX', ['La+ Darknesss', 'Takane Lui', 'Hakui Koyori', 'Sakamata Chloe', 'Kazama Iroha'], index=None)
-    l_jp_d = r2c4.radio('ReGLOSS', ['Hiodoshi Ao', 'Otonose Kanade', 'Ichijou Ririka', 'Juufuutei Raden', 'Todoroki Hajime'], index=None)
+    l_jp_r = r2c4.radio('ReGLOSS', ['Hiodoshi Ao', 'Otonose Kanade', 'Ichijou Ririka', 'Juufuutei Raden', 'Todoroki Hajime'], index=None)
+    l_jp_f = r2c5.radio('FLOW GLOW', ['Isaki Riona', 'Koganei Niko', 'Mizumiya Su', 'Rindo Chihaya', 'Kikirara Vivi'], index=None)
     r3c1, r3c2, r3c3, r3c4, _ = st.columns(5)
     l_en_1 = r3c1.radio('Myth', ['Mori Calliope', 'Takanashi Kiara', 'Ninomae Ina\'nis', 'Gawr Gura', 'Watson Amelia'], index=None)
     l_en_2 = r3c2.radio('CouncilRys', ['IRyS', 'Ceres Fauna', 'Tsukumo Sana', 'Ouro Kronii', 'Nanashi Mumei', 'Hakos Baelz'], index=None)
@@ -432,7 +433,8 @@ if all(e not in ss for e in ['l_jp_0', 'l_jp_1', 'l_jp_2', 'l_jp_g', 'l_jp_3', '
     ss.l_jp_4 = None
     ss.l_jp_5 = None
     ss.l_jp_6 = None
-    ss.l_jp_d = None
+    ss.l_jp_r = None
+    ss.l_jp_f = None
     ss.l_en_1 = None
     ss.l_en_2 = None
     ss.l_en_3 = None
@@ -473,9 +475,12 @@ if l_jp_5 != ss.l_jp_5:
 if l_jp_6 != ss.l_jp_6:
     ss.current = l_jp_6
     ss.l_jp_6 = l_jp_6
-if l_jp_d != ss.l_jp_d:
-    ss.current = l_jp_d
-    ss.l_jp_d = l_jp_d
+if l_jp_r != ss.l_jp_r:
+    ss.current = l_jp_r
+    ss.l_jp_r = l_jp_r
+if l_jp_f != ss.l_jp_f:
+    ss.current = l_jp_f
+    ss.l_jp_f = l_jp_f
 if l_en_1 != ss.l_en_1:
     ss.current = l_en_1
     ss.l_en_1 = l_en_1
