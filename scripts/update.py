@@ -43,6 +43,7 @@ def update():
                 'fauna plays' not in data[i]['title'].lower() and \
                 'mumei radio' not in data[i]['title'].lower() and \
                 'kara-rewind' not in data[i]['title'].lower() and \
+                '【music】' not in data[i]['title'].lower() and \
                 'duration' in data[i] and data[i]['duration'] > 360: # filter out Shorts and very short streams
                     details = {}
                     details['id'] = data[i]['id']
