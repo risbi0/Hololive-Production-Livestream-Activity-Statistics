@@ -13,7 +13,7 @@ def init_page_config():
 
                 Lifetime statistics of HoloPro talents' YouTube channels.
 
-                Based on YouTube livestreams up to **June 29, 2025**, queried using [Holodex API](https://docs.holodex.net/). This doesn't update live; I update this manually twice a month, but I wait a few weeks longer for new generations to have streams in each day.
+                Based on YouTube livestreams up to **July 13, 2025**, queried using [Holodex API](https://docs.holodex.net/). This doesn't update live; I update this manually twice a month, but I wait a few weeks longer for new generations to have streams in each day.
 
                 Data only includes **videos where Holodex has a record of its duration**, since some unarchived streams have its durations unrecorded. This is apparent when looking at the Archive Health of non-JP members who often do unarchived streams (it shows less than actual).
 
