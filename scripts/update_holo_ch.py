@@ -1,23 +1,20 @@
 '''
-Latest membership stream id: U2CJ7MU2Fc8
-Latest public stream id: Qqhk1RgAhwA
+Latest stream ID:pnzZ7w1HR1s
 
-For getting public YouTube livestreams id's. Go to their YouTube channel under Live tab,
+For getting public YouTube livestreams ID's. Go to their YouTube channel under Live tab,
 scroll to the videos to load the elements, then enter in dev console.
 
 JSON.stringify(Array.from(document.querySelectorAll('#video-title-link')).map(e => e.href))
 
-Remove any id's including latest stream and older streams.
-
-For membership livestreams, go to their Holodex page and manually add the links to the array made above.
-Be sure to check for non-public livestreams as well (grey thumbnail with duration).
+Remove any ID's including any upcoming streams and older streams (starting with the latest stream ID mentioned above).
 
 Replace the empty list of 'ids' below with the final array.
 
-After running this, run process_data.py with the specified code lines their uncommented.
+After running this, run process_data.py with the specified code lines uncommented.
 '''
 
 from dotenv import load_dotenv
+from update import parse_date
 import json, requests, os
 
 load_dotenv()
@@ -31,6 +28,7 @@ with open(os.path.join(os.path.dirname(__file__), '../json/livestream_details.js
     livestream_details = json.load(file)
 
 for id in ids:
+    print(id)
     response = requests.get(f'https://holodex.net/api/v2/videos/{id}', headers={'X-APIKEY': HOLODEX_API_KEY})
     data = json.loads(response.text)
 
@@ -54,6 +52,8 @@ for id in ids:
             livestream_details['hololive']['missing'] += 1
             livestream_details['hololive']['missing_length'] += data['duration']
 
+# sort date from earliest to latest
+livestream_details['hololive']['details'] = sorted(livestream_details['hololive']['details'], key=lambda x: parse_date(x['date']))
 # sort topics alphabetically
 livestream_details['hololive']['topics'] = dict(sorted(livestream_details['hololive']['topics'].items(), key=lambda l: l[0].lower()))
 
